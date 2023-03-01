@@ -37,10 +37,9 @@ async function getUserFromAccessToken(req, res) {
 
 module.exports = async function getUserMiddleware(req, res) {
   const session = await getServerSession(req, res, authOptions);
-console.log({session})
+
   if (session && session.user) {
     // req.user = session.user;
-console.log({session})
     return session.user;
   }
 
