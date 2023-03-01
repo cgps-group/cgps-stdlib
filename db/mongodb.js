@@ -18,7 +18,7 @@ let clientPromise;
 if (!uri) {
   throw new Error("Please set Mongodb URI.");
 }
-console.log({uri}, process.env.NODE_ENV)
+
 if (process.env.NODE_ENV === "development") {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
