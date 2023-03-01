@@ -2,6 +2,6 @@
 
 const { MongoDBAdapter } = require("@next-auth/mongodb-adapter");
 
-const clientPromise = require("./mongodb");
+const clientPromise = require("../../db/mongodb");
 
 module.exports = MongoDBAdapter(clientPromise);

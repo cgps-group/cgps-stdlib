@@ -1,10 +1,11 @@
-const { getSession } = require("next-auth/react");
+const { getServerSession } = require("next-auth/next");
 const { ApiError } = require("next/dist/server/api-utils");
 
-const adapter = require("../auth/adapter");
+const authOptions = require("../auth/options");
+const adapter = require("../auth/adapters/get-db-adapter");
 
 async function getUserFromAccessToken(req, res) {
-  const accessToken = req.headers["access-token"] ?? req.query["access-token"];
+  const accessToken = req?.headers?.["access-token"] ?? req?.query?.["access-token"];
 
   if (accessToken) {
     const { decode } = require("next-auth/jwt");
@@ -35,17 +36,18 @@ async function getUserFromAccessToken(req, res) {
 }
 
 module.exports = async function getUserMiddleware(req, res) {
-  const session = await getSession({ req });
-
+  const session = await getServerSession(req, res, authOptions);
+console.log({session})
   if (session && session.user) {
-    req.user = session.user;
+    // req.user = session.user;
+console.log({session})
     return session.user;
   }
 
   const accessTokenUser = await getUserFromAccessToken(req, res);
 
   if (accessTokenUser) {
-    req.user = accessTokenUser;
+    // req.user = accessTokenUser;
     return accessTokenUser;
   }
 

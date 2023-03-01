@@ -3,7 +3,7 @@
 const CredentialsProvider = require("next-auth/providers/credentials").default;
 const LdapAuth = require("ldapauth-fork");
 
-const adapter = require("./adapter");
+const adapter = require("../adapters/get-db-adapter");
 
 const logger = require("../../logger");
 
