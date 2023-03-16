@@ -2,7 +2,7 @@
 
 const NextAuth = require("next-auth").default;
 
-const options = require("./options");
+const options = require("./options.js");
 
 module.exports = function authMiddleware(req, res) {
   if (
