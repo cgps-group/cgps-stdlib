@@ -1,6 +1,6 @@
 const slugify = require("slugify");
 
-module.exports.toSlug = function toSlug(id, title) {
+module.exports = function createSlug(id, title) {
   let path = id;
   if (title) {
     const slug = slugify(

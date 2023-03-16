@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-function getServerRuntimeConfig() {
+function generateServerRuntimeConfig() {
   const mergeOptions = require("merge-options");
 
   const serverRuntimeConfig = require(path.resolve(".", "./defaults.json"));
@@ -15,4 +15,4 @@ function getServerRuntimeConfig() {
   }
 }
 
-module.exports = getServerRuntimeConfig();
+module.exports = generateServerRuntimeConfig();
