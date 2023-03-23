@@ -2,7 +2,7 @@ const theme = {
   background: {
     main: "#ffffff",
     highlight: "#f8f9fa",
-    hover: "#e8eaed",
+    hover: "#f6f7f9",
     disabled: "rgba(0, 0, 0, 0.24)",
   },
   text: {
@@ -36,7 +36,7 @@ const theme = {
     contrast: "#fff",
   },
   fonts: {
-    headline: `"Space Grotesk", "Helvetica", "Arial", sans-serif`,
+    headline: `"IBM Plex Serif", "Helvetica", "Arial", sans-serif`,
     body: `"Work Sans", "Helvetica", "Arial", sans-serif`,
   },
 };
