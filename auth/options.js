@@ -155,7 +155,7 @@ if (serverRuntimeConfig.auth.email) {
   );
 }
 
-if (serverRuntimeConfig.auth.google) {
+if (serverRuntimeConfig.auth.google.clientId && serverRuntimeConfig.auth.google.clientSecret) {
   options.providers.push(
     GoogleProvider(serverRuntimeConfig.auth.google)
   );
