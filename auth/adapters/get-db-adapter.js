@@ -4,7 +4,6 @@ const serverRuntimeConfig = require("../../config/server-runtime-config");
 let adapter;
 
 if (serverRuntimeConfig.auth.adapter === "mongodb") {
-  // import mongodb from "./mongodb.js";
   adapter = require("./mongodb.js");
 }
 else if (serverRuntimeConfig.auth.adapter === "postgres") {
