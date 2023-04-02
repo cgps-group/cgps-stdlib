@@ -19,7 +19,7 @@ module.exports = function authMiddleware(req, res) {
     return res.status(200).send();
   }
 
-  // res.setHeader("Set-Cookie", "mr-next-auth=true; Path=/");
+  // res.setHeader("Set-Cookie", "cgps-next-auth=true; Path=/");
 
   return NextAuth(req, res, options);
 };
