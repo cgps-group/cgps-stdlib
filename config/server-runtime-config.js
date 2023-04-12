@@ -1,4 +1,4 @@
-const getConfig = require("next/config").default;
+const { defaut: getConfig } = require("next/config");
 
 const config = getConfig();
 
