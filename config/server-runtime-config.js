@@ -1,5 +1,5 @@
-const { defaut: getConfig } = require("next/config");
+const getConfig = require("next/config");
 
-const config = getConfig();
+const { serverRuntimeConfig } = getConfig.default();
 
-module.exports = config.serverRuntimeConfig;
+module.exports = serverRuntimeConfig;
