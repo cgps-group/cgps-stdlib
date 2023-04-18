@@ -1,3 +1,5 @@
 const { setConfig } = require("next/config");
 
-module.exports = setConfig;
+module.exports = function (serverRuntimeConfig) {
+  setConfig({ serverRuntimeConfig });
+};

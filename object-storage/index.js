@@ -19,7 +19,7 @@ const client = new S3Client({
   forcePathStyle: config.storageForcePathStyle,
 });
 
-export async function exists(bucket, key) {
+async function exists(bucket, key) {
   const input = {
     Bucket: bucket,
     Key: key,
@@ -38,15 +38,15 @@ export async function exists(bucket, key) {
   return result;
 }
 
-export async function generateUrl(bucket, key) {
+async function generateUrl(bucket, key) {
   const url = new URL(
     `${bucket}/${key}`,
-    config.minioEndpoint,
+    config.storageEndpoint,
   );
   return url.href;
 }
 
-export async function store(bucket, key, data, compress = false) {
+async function store(bucket, key, data, compress = false) {
   const passThroughStream = new stream.PassThrough();
   const uploadsRequest = new Upload({
     client,
@@ -75,7 +75,7 @@ export async function store(bucket, key, data, compress = false) {
   return uploadsRequest.done();
 }
 
-export async function retrieve(bucket, key, decompress = false) {
+async function retrieve(bucket, key, decompress = false) {
   const command = new GetObjectCommand({
     Bucket: bucket,
     Key: key,
@@ -89,3 +89,10 @@ export async function retrieve(bucket, key, decompress = false) {
     return response.Body;
   }
 }
+
+module.exports = {
+  exists,
+  generateUrl,
+  store,
+  retrieve,
+};
