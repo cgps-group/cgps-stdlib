@@ -1,10 +1,10 @@
 /* eslint-disable new-cap */
 
-const NextAuth = require("next-auth").default;
+import NextAuth from "next-auth";
 
-const options = require("./options.js");
+import options from "./options.js";
 
-module.exports = function authMiddleware(req, res) {
+function authMiddleware(req, res) {
   if (
     req.method === "GET"
     &&
@@ -22,4 +22,6 @@ module.exports = function authMiddleware(req, res) {
   // res.setHeader("Set-Cookie", "cgps-next-auth=true; Path=/");
 
   return NextAuth(req, res, options);
-};
+}
+
+export default authMiddleware;
