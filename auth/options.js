@@ -1,6 +1,5 @@
 /* eslint-disable new-cap */
 
-const NextAuth = require("next-auth").default;
 const EmailProvider = require("next-auth/providers/email").default;
 const GoogleProvider = require("next-auth/providers/google").default;
 const FacebookProvider = require("next-auth/providers/facebook").default;
@@ -9,10 +8,10 @@ const GitHubProvider = require("next-auth/providers/github").default;
 const AzureADProvider = require("next-auth/providers/azure-ad").default;
 const { boolean } = require("boolean");
 
-const logger = require("../logger/index");
-const serverRuntimeConfig = require("../config/server-runtime-config");
+const logger = require("../logger/index.js");
+const serverRuntimeConfig = require("../config/server-runtime-config.js");
 
-const dbAdapter = require("./adapters/get-db-adapter");
+const dbAdapter = require("./adapters/get-db-adapter.js");
 
 const options = {
   callbackUrl: "/welcome",
@@ -155,7 +154,7 @@ if (serverRuntimeConfig.auth.email) {
   );
 }
 
-if (serverRuntimeConfig.auth.google.clientId && serverRuntimeConfig.auth.google.clientSecret) {
+if (serverRuntimeConfig.auth.google.clientId) {
   options.providers.push(
     GoogleProvider(serverRuntimeConfig.auth.google)
   );
