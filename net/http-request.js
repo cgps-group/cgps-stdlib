@@ -10,18 +10,22 @@ async function httpRequest(options) {
   else {
     for (let index = 1; index <= retries; index++) {
       try {
+        console.log(rest, "http request");
         const res = await axios(rest);
         if (res.status === 200) {
           return res;
         }
       }
       catch (error) {
+        console.error(error);
         if (index === retries) {
           throw error;
         }
       }
       await sleep(index);
     }
+
+    throw new Error("Request failed");
   }
 }
 
