@@ -139,8 +139,8 @@ const options = {
 
   theme: {
     brandColor: "#3d7484",
-    colorScheme: "light",
-    logo: "/images/logos/microreact.svg",
+    colorScheme: "auto",
+    ...serverRuntimeConfig.auth.theme,
   },
 
   // Additional options
