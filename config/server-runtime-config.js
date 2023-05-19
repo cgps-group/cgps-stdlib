@@ -1,5 +1,5 @@
-const getConfig = require("next/config");
+import getConfig from "next/config";
 
-const { serverRuntimeConfig } = getConfig.default();
+const { serverRuntimeConfig } = getConfig();
 
 module.exports = serverRuntimeConfig;
