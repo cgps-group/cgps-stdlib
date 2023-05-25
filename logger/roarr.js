@@ -1,6 +1,6 @@
-import Roarr from "roarr";
+import roarr, { Roarr } from "roarr";
 import createSerializeErrorMiddleware from "@roarr/middleware-serialize-error";
 
-const childLog = Roarr.child(createSerializeErrorMiddleware());
+const childLog = (Roarr || roarr).child(createSerializeErrorMiddleware());
 
 export default childLog;
