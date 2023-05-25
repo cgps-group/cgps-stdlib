@@ -1,3 +1,3 @@
-const log = require("./roarr.js");
+const log = require("./roarr.cjs");
 
 module.exports = log.default;
