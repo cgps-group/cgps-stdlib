@@ -1,5 +1,5 @@
-const roarr = require("roarr").default;
-const createSerializeErrorMiddleware = require("@roarr/middleware-serialize-error").default;
+const roarr = require("roarr");
+const createSerializeErrorMiddleware = require("@roarr/middleware-serialize-error");
 
-const childLog = roarr.child(createSerializeErrorMiddleware());
+const childLog = roarr.Roarr.child(createSerializeErrorMiddleware.default());
 module.exports = childLog;
