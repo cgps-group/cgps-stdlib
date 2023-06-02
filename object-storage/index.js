@@ -54,7 +54,7 @@ async function store(bucket, key, data, compress = false) {
       Bucket: bucket,
       Key: key,
       Body: passThroughStream,
-      ACL: config.aclPermissions,
+      ACL: config.storageACL,
     },
   });
 
