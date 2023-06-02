@@ -1,10 +1,40 @@
-const winston = require("winston");
+import winston from "winston";
 
-require("winston-daily-rotate-file");
+import "winston-daily-rotate-file";
 
 let logger;
 
-if (process.env.LOGGER_FILENAME) {
+if (process.env.LOGGER_LEVEL) {
+  const transports = [];
+  if (process.env.LOGGER_FILENAME) {
+    transports.push(
+      new winston.transports.DailyRotateFile(
+        {
+          dirname: process.env.LOGGER_DIR ?? "logs",
+          handleExceptions: true,
+          handleRejections: true,
+          filename: `${process.env.LOGGER_FILENAME ?? "application"}-%DATE%.log`,
+          datePattern: "YYYY-MM-DD",
+          zippedArchive: true,
+          maxSize: process.env.LOGGER_MAX_SIZE ?? "64m",
+          maxFiles: process.env.LOGGER_MAX_FILES ?? "90d",
+          format: winston.format.combine(
+            // Render in one line in your log file.
+            // If you use prettyPrint() here it will be really
+            // difficult to exploit your logs files afterwards.
+            winston.format.json(),
+          ),
+        }
+      ),
+    );
+  }
+  else {
+    transports.push(
+      new winston.transports.Console({
+        format: winston.format.simple(),
+      }),
+    );
+  }
   logger = winston.createLogger(
     {
       level: process.env.LOGGER_LEVEL ?? "info",
@@ -15,26 +45,7 @@ if (process.env.LOGGER_FILENAME) {
         // Format the metadata object
         winston.format.metadata({ fillExcept: ["message", "level", "timestamp", "label"] })
       ),
-      transports: [
-        new winston.transports.DailyRotateFile(
-          {
-            dirname: process.env.LOGGER_DIR ?? "logs",
-            handleExceptions: true,
-            handleRejections: true,
-            filename: `${process.env.LOGGER_FILENAME ?? "application"}-%DATE%.log`,
-            datePattern: "YYYY-MM-DD",
-            zippedArchive: true,
-            maxSize: process.env.LOGGER_MAX_SIZE ?? "64m",
-            maxFiles: process.env.LOGGER_MAX_FILES ?? "90d",
-            format: winston.format.combine(
-              // Render in one line in your log file.
-              // If you use prettyPrint() here it will be really
-              // difficult to exploit your logs files afterwards.
-              winston.format.json(),
-            ),
-          }
-        ),
-      ],
+      transports,
     }
   );
   const info = logger.info;
