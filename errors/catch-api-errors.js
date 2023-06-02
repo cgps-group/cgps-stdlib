@@ -1,4 +1,5 @@
 import { ApiError as NextApiError } from "next/dist/server/api-utils";
+import logger from "cgps-stdlib/logger/index.js";
 
 export const ApiError = NextApiError;
 
@@ -15,6 +16,7 @@ export default function catchApiErrors(handler) {
         response.end(err.message);
       }
       else {
+        logger.error(err);
         throw err;
       }
     }
