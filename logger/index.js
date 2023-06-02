@@ -1,3 +1,3 @@
-const log = require("./roarr.js");
+import pino from "./pino.js";
 
-module.exports = log.default;
+export default pino;
