@@ -1,8 +1,9 @@
-const { getServerSession } = require("next-auth/next");
-const { ApiError } = require("next/dist/server/api-utils");
+import { ApiError } from "next/dist/server/api-utils";
 
-const authOptions = require("../auth/options");
-const adapter = require("../auth/adapters/get-db-adapter");
+import { getServerSession } from "next-auth/next";
+
+import authOptions from "../auth/options.js";
+import adapter from "../auth/adapters/get-db-adapter.js";
 
 async function getUserFromAccessToken(req, res) {
   const accessToken = req?.headers?.["access-token"] ?? req?.query?.["access-token"];
@@ -35,7 +36,7 @@ async function getUserFromAccessToken(req, res) {
   return undefined;
 }
 
-module.exports = async function getUserMiddleware(req, res) {
+async function getUserMiddleware(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
   if (session && session.user) {
@@ -51,4 +52,6 @@ module.exports = async function getUserMiddleware(req, res) {
   }
 
   return undefined;
-};
+}
+
+export default getUserMiddleware;

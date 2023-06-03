@@ -1,17 +1,17 @@
 /* eslint-disable new-cap */
 
-const EmailProvider = require("next-auth/providers/email").default;
-const GoogleProvider = require("next-auth/providers/google").default;
-const FacebookProvider = require("next-auth/providers/facebook").default;
-const TwitterProvider = require("next-auth/providers/twitter").default;
-const GitHubProvider = require("next-auth/providers/github").default;
-const AzureADProvider = require("next-auth/providers/azure-ad").default;
-const { boolean } = require("boolean");
+import EmailProvider from "next-auth/providers/email";
+import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
+import TwitterProvider from "next-auth/providers/twitter";
+import GitHubProvider from "next-auth/providers/github";
+import AzureADProvider from "next-auth/providers/azure-ad";
+import { boolean } from "boolean";
 
-const logger = require("../logger/index.js");
-const serverRuntimeConfig = require("../config/server-runtime-config.js");
+import logger from "../logger/index.js";
+import serverRuntimeConfig from "../config/server-runtime-config.js";
 
-const dbAdapter = require("./adapters/get-db-adapter.js");
+import dbAdapter from "./adapters/get-db-adapter.js";
 
 const options = {
   callbackUrl: "/welcome",
@@ -198,4 +198,4 @@ if (serverRuntimeConfig.auth.openidconnect) {
   );
 }
 
-module.exports = options;
+export default options;

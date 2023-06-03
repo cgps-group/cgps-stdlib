@@ -1,4 +1,4 @@
-const serverRuntimeConfig = require("../../config/server-runtime-config.js");
+const serverRuntimeConfig = require("../../config/server-runtime-config.js").default;
 
 // eslint-disable-next-line import/no-mutable-exports
 let adapter;
