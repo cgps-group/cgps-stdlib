@@ -5,7 +5,7 @@ const zlib = require("node:zlib");
 const { S3Client, GetObjectCommand, HeadObjectCommand } = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
 
-const config = require("../config/server-runtime-config.js");
+const config = require("../config/server-runtime-config.js").default;
 
 const pipeline = util.promisify(stream.pipeline);
 
@@ -26,7 +26,9 @@ async function exists(bucket, key) {
   };
   const command = new HeadObjectCommand(input);
   let result = true;
-  try { await client.send(command); }
+  try {
+    await client.send(command);
+  }
   catch (err) {
     if (err.message === "UnknownError") {
       result = false;
