@@ -10,7 +10,6 @@ async function httpRequest(options) {
   else {
     for (let index = 1; index <= retries; index++) {
       try {
-        console.log(rest, "http request");
         const res = await axios(rest);
         if (res.status === 200) {
           return res;
