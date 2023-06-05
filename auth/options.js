@@ -68,7 +68,10 @@ const options = {
      *                           Return `false` to deny access
      */
     signIn: async ({ user, account, profile, email, credentials }) => {
-      logger.debug("signin", { user, account, profile, email, credentials });
+      logger.debug(
+        { user, account, profile, email, credentials },
+        "signin",
+      );
       if (serverRuntimeConfig.auth.allowedUsers && !serverRuntimeConfig.auth.allowedUsers.includes(user.email)) {
         return false;
       }
@@ -126,10 +129,22 @@ const options = {
 
   events: {
     signIn: ({ user, account, profile, isNewUser, req }) => {
-      logger.info("user signin", { email: profile?.email || undefined, username: profile?.username || undefined, provider: account?.provider || undefined }, { user, req });
+      logger.info(
+        {
+          email: profile?.email || undefined,
+          provider: account?.provider || undefined,
+          req,
+          user,
+          username: profile?.username || undefined,
+        },
+        "user signin",
+      );
     },
     signOut({ token, session }) {
-      logger.info("user signout", { token }, {});
+      logger.info(
+        { token },
+        "user signout",
+      );
     },
   },
 
