@@ -95,6 +95,6 @@ async function retrieve(bucket, key, decompress = false) {
 module.exports = {
   exists,
   generateUrl,
-  store,
   retrieve,
+  store,
 };
