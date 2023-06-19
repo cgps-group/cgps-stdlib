@@ -5,7 +5,10 @@ module.exports = function (options) {
     ...options,
     id: "openidconnect",
     profile(profile) {
-      logger.debug("openidconnect profile to user", { profile });
+      logger.debug(
+        { profile },
+        "openidconnect profile to user",
+      );
       return {
         id: profile[options.idAttribute ?? "sub"],
         name: profile[options.nameAttribute ?? "name"],
