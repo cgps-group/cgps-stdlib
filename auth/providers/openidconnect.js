@@ -1,6 +1,6 @@
 const logger = require("../../logger");
 
-module.exports = function(options) {
+module.exports = function (options) {
   return {
     ...options,
     id: "openidconnect",
