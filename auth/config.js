@@ -9,5 +9,15 @@ module.exports = {
       :
       undefined
   ),
+  bryn: (
+    (process.env.AUTH_BRYN)
+      ?
+      {
+        clientId: process.env.AUTH_BRYN_CLIENT_ID,
+        clientSecret: process.env.AUTH_BRYN_CLIENT_SECRET,
+      }
+      :
+      undefined
+  ),
   secret: process.env.AUTH_SECRET,
 };

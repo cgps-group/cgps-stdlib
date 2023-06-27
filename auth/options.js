@@ -213,4 +213,27 @@ if (serverRuntimeConfig.auth.openidconnect) {
   );
 }
 
+if (serverRuntimeConfig.auth.bryn) {
+  options.providers.push({
+    name: "bryn",
+    id: "bryn",
+    type: "oauth",
+    wellKnown: "https://bryn.climb.ac.uk/o/.well-known/openid-configuration/",
+    clientId: serverRuntimeConfig.auth.bryn.clientId,
+    clientSecret: serverRuntimeConfig.auth.bryn.clientSecret,
+    authorization: { params: { scope: "openid email profile groups" } },
+    profile(profile) {
+      logger.debug(
+        { profile },
+        "profile to user",
+      );
+      return {
+        id: profile[options.idAttribute ?? "username"],
+        name: profile[options.nameAttribute ?? "name"],
+        email: profile[options.emailAttribute ?? "email"],
+      };
+    },
+  });
+}
+
 export default options;
