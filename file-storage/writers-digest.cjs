@@ -29,7 +29,7 @@ function writersDigest(filePath, baseDir, callback) {
   stream.on("end", () => {
     const hex = digest.digest("hex");
     const dirName = hex.slice(0, 2);
-    const fileName = hex.slice(2, 40) + ".gz";
+    const fileName = hex.slice(2, 40); // + ".gz";
     const dirPath = path.join(baseDir, dirName);
     mkdirp(dirPath, error => {
       if (error) {
