@@ -6,7 +6,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // TODO(james): Discuss with Khalil the preferred way to manage this. Suggest the client is passed back from the project
-// WHY(james): Doing this here as NextAuth creates Users this as part of its OAuth flow
+// WHY(james): Doing this here as NextAuth creates Users as part of its OAuth flow
 const prismaExtended = prisma.$extends({
   query: {
     user: {
@@ -22,13 +22,12 @@ const prismaExtended = prisma.$extends({
             },
           });
 
-          const groupMembers = await tx.groupMember.create({
+          await tx.groupMember.create({
             data: {
               userId: user.id,
               groupId: group.id,
             },
           });
-          console.log({ group, groupMembers });
 
           return user; // MAYBE(james): Return all values? Haven't done this as it changes the create API
         });
