@@ -36,8 +36,8 @@ const theme = {
     contrast: "#fff",
   },
   fonts: {
-    headline: `"IBM Plex Serif", "Helvetica", "Arial", sans-serif`,
-    body: `"Work Sans", "Helvetica", "Arial", sans-serif`,
+    headline: `"Montserrat Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
+    body: `"Work Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
   },
 };
 
