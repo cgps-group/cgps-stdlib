@@ -6,14 +6,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import { debounce } from "@mui/material/utils";
 
-import defaultStyles from "./index.module.css";
+import styles from "./index.module.css";
 /**
  * A simple search input
  */
 function Search(props) {
   return (
     <Grid
-      className={defaultStyles.root}
+      className={styles.root}
       alignItems="flex-end"
       container
       spacing={1}
