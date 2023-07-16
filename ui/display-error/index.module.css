@@ -1,0 +1,12 @@
+.error-message {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.error-stack {
+  border: 1px solid var(--secondary-main);
+  padding: 16px;
+  background-color: var(--background-highlight);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

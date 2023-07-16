@@ -1,0 +1,15 @@
+.root {
+  text-align: center;
+}
+
+.icon {
+  margin-top: 20vh;
+  color: #e4e4e4;
+}
+
+
+.icon svg {
+  width: 120px;
+  height: 120px;
+  margin: 20px;
+}
