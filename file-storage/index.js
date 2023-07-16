@@ -39,7 +39,7 @@ function hashToPath(hash) {
   return path.join(
     repoPath,
     hash.substr(0, 2),
-    `${hash.substr(2)}.gz`,
+    `${hash.substr(2)}`,
   );
 }
 
