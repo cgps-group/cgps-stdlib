@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const serverRuntimeConfig = require("../config/server-runtime-config.js").default;
 
-const MONGODB_URL = process.env.MONGODB_URL || serverRuntimeConfig.mongodb.url;
+const MONGODB_URL = process.env.MONGODB_URL;
 
 if (!MONGODB_URL) {
   throw new Error(
