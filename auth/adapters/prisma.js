@@ -1,8 +1,10 @@
 /* eslint-disable new-cap */
 
-const { PrismaAdapter } = require("@next-auth/prisma-adapter");
-const { PrismaClient } = require("@prisma/client");
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+function createPrismaAdapter(prisma) {
+  return PrismaAdapter(prisma ?? new PrismaClient());
+}
 
-module.exports = PrismaAdapter(prisma);
+export default createPrismaAdapter;
