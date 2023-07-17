@@ -40,14 +40,12 @@ async function getUserMiddleware(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
   if (session && session.user) {
-    // req.user = session.user;
     return session.user;
   }
 
   const accessTokenUser = await getUserFromAccessToken(req, res);
 
   if (accessTokenUser) {
-    // req.user = accessTokenUser;
     return accessTokenUser;
   }
 
