@@ -1,7 +1,9 @@
 /* eslint-disable new-cap */
 
-const { MongoDBAdapter } = require("@next-auth/mongodb-adapter");
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-const clientPromise = require("../../db/mongodb");
+function createMongoDBAdapter(clientPromise) {
+  return MongoDBAdapter(clientPromise);
+}
 
-module.exports = MongoDBAdapter(clientPromise);
+export default createMongoDBAdapter;
