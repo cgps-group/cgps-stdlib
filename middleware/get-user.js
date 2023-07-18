@@ -3,7 +3,9 @@ import { ApiError } from "next/dist/server/api-utils";
 import { getServerSession } from "next-auth/next";
 
 import authOptions from "../auth/options.js";
-import adapter from "../auth/adapters/get-db-adapter.js";
+import getDbAdapter from "../auth/adapters/get-db-adapter.js";
+
+const adapter = getDbAdapter();
 
 async function getUserFromAccessToken(req, res) {
   const accessToken = req?.headers?.["access-token"] ?? req?.query?.["access-token"];

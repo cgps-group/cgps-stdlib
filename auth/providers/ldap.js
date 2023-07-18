@@ -3,9 +3,9 @@
 const CredentialsProvider = require("next-auth/providers/credentials").default;
 const LdapAuth = require("ldapauth-fork");
 
-const adapter = require("../adapters/get-db-adapter");
+const getDbAdapter = require("../adapters/get-db-adapter.js");
 
-const logger = require("../../logger");
+const logger = require("../../logger/index.js");
 
 function login(config, credentials) {
   const client = new LdapAuth(config);
@@ -32,7 +32,7 @@ function login(config, credentials) {
   });
 }
 
-module.exports = function(options) {
+module.exports = function (options) {
   const config = {
     name: "LDAP",
     session: false,
@@ -62,7 +62,7 @@ module.exports = function(options) {
           return null;
         }
 
-        // const adapter = await getDatabaseAdapter();
+        const adapter = getDbAdapter();
         const email = profile[config.emailAttribute || "mail"];
         const uid = profile[config.idAttribute || "uid"];
         const name = profile[config.nameAttribute || "displayName"];

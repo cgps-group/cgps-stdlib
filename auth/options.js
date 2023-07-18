@@ -10,12 +10,12 @@ import { boolean } from "boolean";
 
 import logger from "../logger/index.js";
 import serverRuntimeConfig from "../config/server-runtime-config.js";
-import adapter from "./adapters/get-db-adapter.js";
+import getDbAdapter from "./adapters/get-db-adapter.js";
 
 const options = {
   callbackUrl: "/welcome",
 
-  adapter,
+  adapter: getDbAdapter(),
 
   // logger,
 

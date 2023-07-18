@@ -1,4 +1,5 @@
 /* eslint-disable import/no-mutable-exports */
+
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 const { MongoClient } = require("mongodb");
 
