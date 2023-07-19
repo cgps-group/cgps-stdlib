@@ -1,7 +1,9 @@
-import serverRuntimeConfig from "../../config/server-runtime-config.js";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
-if (typeof serverRuntimeConfig.auth.adapter !== "object") {
-  throw new Error("auth requires an adapter");
+function createPrismaAdapter() {
+  const prisma = new PrismaClient();
+  return PrismaAdapter(prisma); // eslint-disable-line new-cap
 }
 
-export default serverRuntimeConfig.auth.adapter;
+export default createPrismaAdapter();
