@@ -217,7 +217,7 @@ function createOptions(adapter) {
 
   if (serverRuntimeConfig.auth.bryn) {
     options.providers.push({
-      name: "bryn",
+      name: "CLIMB",
       id: "bryn",
       type: "oauth",
       wellKnown: "https://bryn.climb.ac.uk/o/.well-known/openid-configuration/",
