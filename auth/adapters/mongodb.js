@@ -1,8 +1,10 @@
-function createMongoDBAdapter() {
-  const { MongoDBAdapter } = require("@next-auth/mongodb-adapter");
-  const clientPromise = require("cgps-stdlib/db/mongodb-connect.js");
-  // eslint-disable-next-line new-cap
-  return MongoDBAdapter(clientPromise().then((x) => x.connection.client));
-}
+import { MongoDBAdapter as createMongoDBAdapter } from "@next-auth/mongodb-adapter";
 
-export default createMongoDBAdapter;
+import clientPromise from "cgps-stdlib/db/mongodb-connect.js";
+
+export default (
+  createMongoDBAdapter(
+    clientPromise()
+      .then((x) => x.connection.client)
+  )
+);
