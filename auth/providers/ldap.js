@@ -3,7 +3,7 @@
 const CredentialsProvider = require("next-auth/providers/credentials").default;
 const LdapAuth = require("ldapauth-fork");
 
-const getDbAdapter = require("../adapters/get-db-adapter.js");
+const adapter = require("../adapters/get-db-adapter.js");
 
 const logger = require("../../logger/index.js");
 
@@ -62,7 +62,6 @@ module.exports = function (options) {
           return null;
         }
 
-        const adapter = getDbAdapter();
         const email = profile[config.emailAttribute || "mail"];
         const uid = profile[config.idAttribute || "uid"];
         const name = profile[config.nameAttribute || "displayName"];

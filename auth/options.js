@@ -15,7 +15,7 @@ import getDbAdapter from "./adapters/get-db-adapter.js";
 const options = {
   callbackUrl: "/welcome",
 
-  adapter: getDbAdapter(),
+  adapter: getDbAdapter,
 
   // logger,
 
