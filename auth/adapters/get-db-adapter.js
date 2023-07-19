@@ -1,3 +1,13 @@
+import serverRuntimeConfig from "../../config/server-runtime-config.js";
+
+// if (typeof serverRuntimeConfig.auth.adapter !== "object") {
+//   throw new Error("auth requires an adapter");
+// }
+
+console.log(
+  serverRuntimeConfig.auth.adapter
+)
+
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 
