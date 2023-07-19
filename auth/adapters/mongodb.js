@@ -1,5 +1,3 @@
-/* eslint-disable new-cap */
-
 function createMongoDBAdapter() {
   const { MongoDBAdapter } = require("@next-auth/mongodb-adapter");
   const clientPromise = require("cgps-stdlib/db/mongodb-connect.js");
