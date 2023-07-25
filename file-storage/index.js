@@ -25,7 +25,6 @@ function createTmpFile() {
 
 async function checkFileSize(tmpFilePath) {
   const stats = await fs.promises.stat(tmpFilePath);
-  console.log(stats.size, {maxFileSizeInBytes}, serverRuntimeConfig.filesStorage.limit)
   if (stats.size > maxFileSizeInBytes) {
     throw new ApiError(413, "Payload Too Large");
   }
