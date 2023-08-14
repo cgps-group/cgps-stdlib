@@ -1,7 +1,9 @@
-module.exports = function generateUrl(baseUrl, path, params) {
+import config from "../config/public-runtime-config.js";
+
+function generateUrl(baseUrl, path, params) {
   const url = new URL(
     path,
-    baseUrl,
+    baseUrl ?? config.baseUrl,
   );
 
   if (params) {
@@ -14,4 +16,6 @@ module.exports = function generateUrl(baseUrl, path, params) {
   }
 
   return url.href;
-};
+}
+
+export default generateUrl;

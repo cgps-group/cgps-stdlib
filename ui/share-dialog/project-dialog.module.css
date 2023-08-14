@@ -1,0 +1,37 @@
+
+.root :global .MuiDialog-paper {
+  position: relative;
+  max-height: calc(100% - 24px);
+}
+
+.root :global .MuiDialogContent-root :global .MuiLinearProgress-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+
+.root :global .MuiDialogContent-root {
+  /* min-height: 332px; */
+  /* max-height: 368px; */
+  position: relative;
+  padding: 0;
+  max-height: calc(100vh -56px - 24px);
+}
+
+.root :global .MuiDialogContent-root :global .full-content {
+  min-height: 348px;
+  /* max-height: 368px; */
+  padding: 8px 24px;
+}
+
+.root :global section {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.root :global section + section {
+  margin-top: 16px;
+}
