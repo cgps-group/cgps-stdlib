@@ -13,7 +13,7 @@ import ProjectAccessLevelSection from "./ProjectAccessLevelSection.js";
 import ProjectAccessSharingSection from "./ProjectAccessSharingSection.js";
 import ProjectAccessLinkSection from "./ProjectAccessLinkSection.js";
 
-class ProjectAccessDialog extends React.PureComponent {
+class ShareDialog extends React.PureComponent {
 
   state = {
     access: null,
@@ -88,7 +88,7 @@ class ProjectAccessDialog extends React.PureComponent {
 
 }
 
-ProjectAccessDialog.propTypes = {
+ShareDialog.propTypes = {
   accessLabel: PropTypes.string,
   accessOptions: PropTypes.array.isRequired,
   dataHook: PropTypes.func.isRequired,
@@ -104,8 +104,8 @@ ProjectAccessDialog.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-ProjectAccessDialog.defaultProps = {
+ShareDialog.defaultProps = {
   title: "Share with People",
 };
 
-export default ProjectAccessDialog;
+export default ShareDialog;

@@ -6,7 +6,7 @@ import React from "react";
 const UiAvatar = (props) => {
   return (
     <Avatar
-      title={`Gravatar of ${props.email}`}
+      title={props.title === false ? undefined : `Gravatar of ${props.email}`}
       src={gravatar.url(props.email)}
     />
   );
