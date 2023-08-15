@@ -34,29 +34,48 @@ class ProjectAccessDialog extends React.PureComponent {
             dataHook={props.dataHook}
           >
             {
-              ({ data: projectAccessData }) => {
+              ({ data: accessData, mutate }) => {
                 return (
                   <React.Fragment>
                     <ProjectAccessLinkSection
                       hasAlias={props.hasAlias}
                       linkLabel={props.linkLabel}
-                      linkUrl={projectAccessData.linkUrl}
+                      linkUrl={accessData.linkUrl}
                     />
 
                     <ProjectAccessLevelSection
                       label={props.accessLabel}
                       onChange={props.onAccessChange}
                       options={props.accessOptions}
-                      value={projectAccessData.accessLevel}
+                      value={accessData.accessLevel}
                     />
 
                     <ProjectAccessSharingSection
+                      roles={props.shareRoles}
                       emailsDataHook={props.shareEmailsDataHook}
-                      onRevokeInvitation={props.onRevokeInvitation}
-                      onSendInvitation={props.onSendInvitation}
-                      shares={projectAccessData.shares}
+                      onSendInvitation={async (emails, role) => {
+                        await props.onSendInvitation(emails, role);
+                        mutate();
+                      }}
+                      onRevokeInvitation={async (email, kind) => {
+                        await props.onRevokeInvitation(email, kind);
+                        mutate();
+                      }}
+                      onRoleChange={
+                        (email, role) => {
+                          const newAccessData = { ...accessData };
+                          newAccessData.shares = [...accessData.shares];
+                          const shareIndex = newAccessData.shares.findIndex((x) => x.email === email);
+                          newAccessData.shares[shareIndex] = {
+                            ...newAccessData.shares[shareIndex],
+                            role,
+                          };
+                          mutate(newAccessData, { optimisticData: true, revalidate: false });
+                          props.onShareRoleChange(email, role);
+                        }
+                      }
+                      shares={accessData.shares}
                     />
-
                   </React.Fragment>
                 );
               }
@@ -79,7 +98,9 @@ ProjectAccessDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   onRevokeInvitation: PropTypes.func.isRequired,
   onSendInvitation: PropTypes.func.isRequired,
+  onShareRoleChange: PropTypes.func.isRequired,
   shareEmailsDataHook: PropTypes.func.isRequired,
+  shareRoles: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
 };
 

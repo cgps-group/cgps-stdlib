@@ -17,11 +17,13 @@ import Popper from "@mui/material/Popper";
 import PropTypes from "prop-types";
 import React from "react";
 import TextField from "@mui/material/TextField";
+import { sentenceCase } from "change-case";
 
 import { useSnackbar } from "notistack";
 
 import UiAvatar from "cgps-stdlib/ui/avatar/index.js";
 import UiSelect from "cgps-stdlib/ui/select/index.js";
+import { Divider } from "@mui/material";
 
 const AutocompletePopper = function (props) {
   return (
@@ -85,11 +87,55 @@ EmailAddressesInput.propTypes = {
   onChange: PropTypes.func,
 };
 
+const RolesSelect = (props) => {
+  return (
+    <UiSelect
+      label={props.label}
+      onChange={
+        (event) => {
+          props.onChange(event.target.value);
+        }
+      }
+      options={props.roles}
+      renderValue={(item) => sentenceCase(item)}
+      size="small"
+      value={props.value}
+      variant="outlined"
+      defaultRole="viewer"
+    >
+      {
+        props.hasRemoveAccess && (
+          <Divider />
+        )
+      }
+      {
+        props.hasRemoveAccess && (
+          <UiSelect.Item value="remove-access">
+            Remove access
+          </UiSelect.Item>
+        )
+      }
+    </UiSelect>
+  );
+};
+
 const ProjectAccessSharingSection = (props) => {
   const [emails, setEmails] = React.useState([]);
   const [role, setRole] = React.useState(props.defaultRole ?? props.roles?.[0]?.value);
   const [sendingStatus, setSendingStatus] = React.useState(false);
   const { enqueueSnackbar } = useSnackbar();
+
+  const handleRemoveAccess = (email) => {
+    setSendingStatus(true);
+    props.onRevokeInvitation(email)
+      .then(() => {
+        enqueueSnackbar("Access has been removed", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar(err.message, { variant: "error" });
+      })
+      .then(() => setSendingStatus(false));
+  };
 
   return (
     <Paper
@@ -105,37 +151,53 @@ const ProjectAccessSharingSection = (props) => {
       />
 
       <List dense>
-
         {
-          props.shares.map(
-            ({ email, kind, createdAt }) => (
+          props.shares?.map(
+            (share) => (
               <ListItem
-                key={email}
+                key={share.email}
                 dense
               >
                 <ListItemAvatar>
                   <UiAvatar
-                    email={email}
+                    email={share.email}
                   />
                 </ListItemAvatar>
                 <ListItemText
-                  primary={email}
+                  primary={share.email}
                   secondary={
-                    (kind === "user") ? `Added on ${new Date(createdAt).toLocaleDateString()}` :
-                      (kind === "invitation") ? `Invitation sent on ${new Date(createdAt).toLocaleDateString()}` :
+                    (share.kind === "user") ? `Added on ${new Date(share.createdAt).toLocaleDateString()}` :
+                      (share.kind === "invitation") ? `Invited on ${new Date(share.createdAt).toLocaleDateString()}` :
                         null
                   }
                 />
                 <ListItemSecondaryAction>
                   {
-                    (kind === "invitation") && (
-                      <IconButton
+                    (share.kind === "user") && (
+                      <RolesSelect
+                        onChange={(newRole) => {
+                          if (newRole === "remove-access") {
+                            handleRemoveAccess(share.email);
+                          }
+                          else {
+                            props.onRoleChange(share.email, newRole, props.shares);
+                          }
+                        }}
+                        roles={props.roles}
+                        value={share.role}
+                        hasRemoveAccess
+                      />
+                    )
+                  }
+                  {
+                    (share.kind === "invitation") && (
+                      <Button
                         title="Resend invitation email"
                         disabled={sendingStatus}
                         onClick={
                           () => {
                             setSendingStatus(true);
-                            props.onSendInvitation([email])
+                            props.onSendInvitation([share.email], role)
                               .then(() => {
                                 setEmails([]);
                                 enqueueSnackbar("Invitation email has been resent", { variant: "success" });
@@ -147,29 +209,19 @@ const ProjectAccessSharingSection = (props) => {
                           }
                         }
                       >
-                        <SendRoundedIcon />
+                        Resend
                         {sendingStatus && <CircularProgress size={24} />}
-                      </IconButton>
+                      </Button>
                     )
                   }
-                  <IconButton
+                  {/* <IconButton
                     title="Remove user"
                     onClick={
-                      () => {
-                        setSendingStatus(true);
-                        props.onRevokeInvitation(email, kind)
-                          .then(() => {
-                            enqueueSnackbar("Invitation has been revoked", { variant: "success" });
-                          })
-                          .catch((err) => {
-                            enqueueSnackbar(err.message, { variant: "error" });
-                          })
-                          .then(() => setSendingStatus(false));
-                      }
+                      () => handleRemoveAccess(share.email)
                     }
                   >
                     <DeleteRoundedIcon />
-                  </IconButton>
+                  </IconButton> */}
                 </ListItemSecondaryAction>
               </ListItem>
             )
@@ -179,18 +231,11 @@ const ProjectAccessSharingSection = (props) => {
         {
           (emails.length > 0) && (
             <div className="send-invitation">
-              <UiSelect
-                className="access-level-select"
-                label={props.label}
-                onChange={
-                  (event) => {
-                    setAccessState(event.target.value);
-                  }
-                }
-                size="small"
-                value={accessState ?? props.value}
-                variant="outlined"
-                options={props.roles}
+              <RolesSelect
+                label={props.roleLabel}
+                onChange={setRole}
+                roles={props.roles}
+                value={role ?? props.defaultRole}
               />
               <Button
                 color="primary"
@@ -208,7 +253,7 @@ const ProjectAccessSharingSection = (props) => {
                 onClick={
                   () => {
                     setSendingStatus(true);
-                    props.onSendInvitation(emails)
+                    props.onSendInvitation(emails, role)
                       .then(() => {
                         setEmails([]);
                         enqueueSnackbar("Invitation email has been sent", { variant: "success" });
@@ -238,8 +283,12 @@ ProjectAccessSharingSection.propTypes = {
   emailsDataHook: PropTypes.func.isRequired,
   onRevokeInvitation: PropTypes.func.isRequired,
   onSendInvitation: PropTypes.func.isRequired,
+  roleLabel: PropTypes.string.isRequired,
   roles: PropTypes.array.isRequired,
   shares: PropTypes.array.isRequired,
+};
+
+ProjectAccessSharingSection.defaultProps = {
 };
 
 export default ProjectAccessSharingSection;

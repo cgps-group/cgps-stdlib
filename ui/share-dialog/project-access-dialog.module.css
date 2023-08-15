@@ -19,7 +19,7 @@
   bottom: 0;
   background-color: var(--background-main);
   padding: 16px;
-  text-align: right;
+  /* text-align: right; */
 }
 
 .root :global section.users :global .send-invitation button {

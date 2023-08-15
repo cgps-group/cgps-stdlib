@@ -16,6 +16,7 @@ function UiDataHook(props) {
     data,
     isError,
     isLoading,
+    mutate,
   } = dataHook();
 
   if (isLoading || props.isLoading) {
@@ -59,6 +60,7 @@ function UiDataHook(props) {
   return (
     <DataView
       {...rest}
+      mutate={mutate}
       data={data}
     />
   );

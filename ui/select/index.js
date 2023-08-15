@@ -6,13 +6,9 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 
 function formatOptions(props) {
-  if (props.children) {
-    return props.children;
-  }
-  else if (props.options) {
+  if (props.options) {
     return props.options.map(
       (item) => (
         <MenuItem
@@ -23,7 +19,7 @@ function formatOptions(props) {
             display="flex"
             alignItems="center"
           >
-            <PeopleOutlineOutlinedIcon />
+            {item.icon}
             <Box
               display="flex"
               flexDirection="column"
@@ -64,12 +60,14 @@ function UiSelect(props) {
         {...rest}
       >
         {formatOptions(props)}
+        {props.children}
       </Select>
     </FormControl>
   );
 }
 
 UiSelect.propTypes = {
+  children: PropTypes.node,
   className: PropTypes.string,
   label: PropTypes.string,
   options: PropTypes.array,
