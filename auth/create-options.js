@@ -153,7 +153,7 @@ function createOptions(adapter) {
 
     theme: {
       brandColor: "#3d7484",
-      colorScheme: "auto",
+      colorScheme: "light",
       ...serverRuntimeConfig.auth.theme,
     },
 
