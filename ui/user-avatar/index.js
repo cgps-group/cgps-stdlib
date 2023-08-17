@@ -31,13 +31,7 @@ function UserAvatar(props) {
 }
 
 UserAvatar.propTypes = {
-  defaultRole: PropTypes.string.isRequired,
-  emailsDataHook: PropTypes.func.isRequired,
-  onRevokeInvitation: PropTypes.func.isRequired,
-  onSendInvitation: PropTypes.func.isRequired,
-  roleLabel: PropTypes.string.isRequired,
-  roles: PropTypes.array.isRequired,
-  shares: PropTypes.array.isRequired,
+  href: PropTypes.string.isRequired,
 };
 
 export default UserAvatar;
