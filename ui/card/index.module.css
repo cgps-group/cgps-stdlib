@@ -1,0 +1,25 @@
+.root {
+  border: none !important;
+  border-radius: 8px !important;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.root :global .MuiCardActions-root {
+  opacity: 0;
+  transition-duration: .218s;
+  transition-property: opacity;
+  transition-timing-function: ease-in;
+  background-color: var(--background-main);
+  margin: 4px;
+  padding: 0;
+}
+.root:hover :global .MuiCardActions-root {
+  opacity: 1;
+}
+
+.main-actions {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

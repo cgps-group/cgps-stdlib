@@ -4,6 +4,8 @@ import Skeleton from "@mui/material/Skeleton";
 import Grid from "@mui/material/Grid";
 import MuiCard from "@mui/material/Card";
 
+import { EmptyObject } from "../../constants.js";
+
 import styles from "./index.module.css";
 
 function Card(props) {
@@ -52,13 +54,8 @@ SkeletonGrid.propTypes = {
 SkeletonGrid.defaultProps = {
   itemCount: 12,
 };
-/**
- * This component is based on https://github.com/microreact/server/blob/main/components/AccountProjectGrid.js
- *
- * It doesn't yet match all functionality provided by that component as it can't be tested and it's unclear what should be included.
- *
- */
-function CardGrid(props) {
+
+function DataGrid(props) {
   return (
     <Grid container spacing={3}>
       {
@@ -73,7 +70,10 @@ function CardGrid(props) {
               lg={4}
               xl={3}
             >
-              <props.Card item={item} />
+              <props.Card
+                item={item}
+                {...props.cardProps}
+              />
             </Grid>
           )
         )
@@ -82,12 +82,17 @@ function CardGrid(props) {
   );
 }
 
-CardGrid.propTypes = {
+DataGrid.propTypes = {
   Card: PropTypes.func.isRequired,
+  cardProps: PropTypes.object.isRequired,
   list: PropTypes.array.isRequired,
 };
 
-CardGrid.Card = Card;
-CardGrid.SkeletonGrid = SkeletonGrid;
+DataGrid.defaultProps = {
+  cardProps: EmptyObject,
+};
 
-export default CardGrid;
+DataGrid.Card = Card;
+DataGrid.SkeletonGrid = SkeletonGrid;
+
+export default DataGrid;
