@@ -22,7 +22,7 @@ const Markdown = (
 Markdown.displayName = "Markdown";
 
 Markdown.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   unwrap: PropTypes.bool,
 };
 
