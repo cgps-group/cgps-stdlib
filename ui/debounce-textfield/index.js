@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
+import TextField from "@mui/material/TextField";
 import { DebounceInput } from "react-debounce-input";
-import OutlinedInput from "@mui/material/OutlinedInput";
 
 const Input = React.forwardRef(
   (props, ref) => (
@@ -11,39 +9,46 @@ const Input = React.forwardRef(
       inputRef={ref}
       {...props}
     />
-));
+  )
+);
+
+Input.displayName = "Input";
+
+const inputComponent = { inputComponent: Input };
 
 function DebounceTextfield(props) {
+  const { debounceInputProp, ...rest } = props;
   return (
-    <FormControl
-      variant={props.variant}
-      color={props.color}
-      title={props.title}
-      size={props.size}
-      label={props.label}
-    >
-      {props.label && (<InputLabel>{props.label}</InputLabel>)}
+    <TextField
+      InputProps={inputComponent}
+      inputProps={debounceInputProp}
+      {...rest}
+    />
+    // <FormControl
+    //   variant={props.variant}
+    //   color={props.color}
+    //   title={props.title}
+    //   size={props.size}
+    //   label={props.label}
+    // >
+    //   {props.label && (<InputLabel>{props.label}</InputLabel>)}
 
-      <OutlinedInput
-        inputComponent={Input}
-        label={props.label}
-        className={props.className}
-        debounceTimeout={props.debounceTimeout ?? 3000}
-        onChange={props.onChange}
-        value={props.value}
-      />
-    </FormControl>
+    //   <OutlinedInput
+    //     inputComponent={Input}
+    //     label={props.label}
+    //     className={props.className}
+    //     debounceTimeout={props.debounceTimeout ?? 3000}
+    //     onChange={props.onChange}
+    //     value={props.value}
+    //   />
+    // </FormControl>
   );
 }
 
 DebounceTextfield.displayName = "DebounceTextfield";
 
 DebounceTextfield.propTypes = {
-  label: PropTypes.string,
-  size: PropTypes.string,
-  title: PropTypes.string,
-  value: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  debounceInputProp: PropTypes.object,
 };
 
 export default DebounceTextfield;
