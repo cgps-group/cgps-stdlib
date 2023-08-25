@@ -86,11 +86,18 @@ function createOptions(adapter) {
        * @link https://next-auth.js.org/configuration/callbacks#session-callback
        * @param  {object} session      Session object
        * @param  {object} user         User object    (if using database sessions)
-       *                               JSON Web Token (if not using database sessions)
+       * @param  {object} token        JSON Web Token (if not using database sessions)
        * @return {object}              Session that will be returned to the client
        */
       session: async ({ session, token, user }) => {
         session.user.id = (token || user).id;
+
+        const userDoc = await adapter.getUser(session.user.id);
+        if (!userDoc) {
+          // User was removed from DB after token creation
+          return null;
+        }
+
         return Promise.resolve(session);
       },
 
