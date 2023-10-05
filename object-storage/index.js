@@ -2,7 +2,12 @@ const stream = require("node:stream");
 const util = require("node:util");
 const zlib = require("node:zlib");
 
-const { S3Client, GetObjectCommand, HeadObjectCommand } = require("@aws-sdk/client-s3");
+const {
+  S3Client,
+  GetObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+} = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
@@ -49,8 +54,20 @@ async function generateUrl(bucket, key) {
   return url.href;
 }
 
-async function generateSignedUrl(bucket, key) {
+async function generateSignedGetUrl(bucket, key) {
   const command = new GetObjectCommand({
+    Bucket: bucket,
+    Key: key,
+  });
+  return getSignedUrl(
+    client,
+    command,
+    { expiresIn: 3600 },
+  );
+}
+
+async function generateSignedUploadUrl(bucket, key) {
+  const command = new PutObjectCommand({
     Bucket: bucket,
     Key: key,
   });
@@ -107,7 +124,8 @@ async function retrieve(bucket, key, decompress = false) {
 
 module.exports = {
   exists,
-  generateSignedUrl,
+  generateSignedGetUrl,
+  generateSignedUploadUrl,
   generateUrl,
   retrieve,
   store,
