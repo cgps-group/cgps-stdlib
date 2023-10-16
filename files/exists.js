@@ -1,11 +1,10 @@
-import fs from "fs";
+const fs = require("fs");
 
-export default async function exists(path) {
+module.exports = async function (path) {
   try {
     await fs.promises.access(path);
     return true;
-  }
-  catch {
+  } catch {
     return false;
   }
-}
+};
