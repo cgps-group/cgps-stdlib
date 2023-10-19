@@ -17,11 +17,11 @@ Input.displayName = "Input";
 const inputComponent = { inputComponent: Input };
 
 function DebounceTextfield(props) {
-  const { debounceInputProp, ...rest } = props;
+  const { debounceInputProps, ...rest } = props;
   return (
     <TextField
       InputProps={inputComponent}
-      inputProps={debounceInputProp}
+      inputProps={debounceInputProps ?? { debounceTimeout: 1000 }}
       {...rest}
     />
     // <FormControl
@@ -48,7 +48,7 @@ function DebounceTextfield(props) {
 DebounceTextfield.displayName = "DebounceTextfield";
 
 DebounceTextfield.propTypes = {
-  debounceInputProp: PropTypes.object,
+  debounceInputProps: PropTypes.object,
 };
 
 export default DebounceTextfield;
