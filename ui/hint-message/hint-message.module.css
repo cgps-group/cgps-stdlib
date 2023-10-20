@@ -1,0 +1,17 @@
+.root {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  color: #cccccc;
+}
+
+.message {
+  font-size: 1.66em;
+  font-weight: bold;
+  flex-direction: column;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
