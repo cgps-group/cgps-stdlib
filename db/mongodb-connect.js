@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+mongoose.set("strictQuery", false);
+
 const MONGODB_URL = process.env.MONGODB_URL;
 
 if (!MONGODB_URL) {
@@ -37,7 +39,8 @@ async function dbConnect() {
 
   try {
     cached.conn = await cached.promise;
-  } catch (e) {
+  }
+  catch (e) {
     cached.promise = null;
     throw e;
   }
