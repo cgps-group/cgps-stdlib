@@ -48,11 +48,7 @@ function ConfirmationModal(props) {
             <Button onClick={handleCloseModal}>
               Cancel
             </Button>
-            <Button
-              onClick={handleConfirm}
-              variant="contained"
-              color="error"
-            >
+            <Button onClick={handleConfirm}>
               Confirm
             </Button>
           </DialogActions>
