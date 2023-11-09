@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-import debouncedCallback from "cgps-stdlib/hooks/debounced-callback.js";
+import useDebouncedCallback from "cgps-stdlib/hooks/use-debounced-callback.js";
 import UiSelect from "cgps-stdlib/ui/select/index.js";
 
 const ProjectAccessLevelSection = (props) => {
   const [accessState, setAccessState] = React.useState(null);
 
-  const handleSave = debouncedCallback(
+  const handleSave = useDebouncedCallback(
     props.onChange
   );
 

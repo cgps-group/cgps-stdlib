@@ -2,14 +2,15 @@ import React from "react";
 
 import debounce from "lodash.debounce";
 
-function debouncedCallback(func) {
+function useDebouncedCallback(func, options = {}) {
   return React.useCallback(
     debounce(
       func,
       1000,
+      options
     ),
     [],
   );
 }
 
-export default debouncedCallback;
+export default useDebouncedCallback;
