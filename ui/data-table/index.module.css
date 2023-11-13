@@ -19,6 +19,10 @@
   outline: none
 }
 
-.root :global .MuiTableCell-root.MuiTableCell-body {
-  padding-left: 0;
+.root :global .MuiTableCell-root.MuiTableCell-body:first-child {
+  padding-left: 8px;
+}
+
+.root :global .MuiTableCell-root.MuiTableCell-body:last-child {
+  padding-right: 8px;
 }

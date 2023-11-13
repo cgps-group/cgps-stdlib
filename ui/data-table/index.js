@@ -180,7 +180,7 @@ function DataTable(props) {
           ))}
         </TableBody>
       </Table>
-      <Box textAlign="center" padding={2}>
+      <Box textAlign="center" paddingTop={1}>
         <Button onClick={props.onRowAdd}>
           <AddIcon /> Add
         </Button>
