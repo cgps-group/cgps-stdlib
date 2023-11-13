@@ -1,0 +1,12 @@
+.root {
+  width: 100%;
+}
+
+.root :global .MuiOutlinedInput-root fieldset {
+  border: none;
+  outline: none
+}
+
+.root :global .MuiTableCell-root.MuiTableCell-body {
+  padding-left: 0;
+}
