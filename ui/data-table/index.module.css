@@ -2,6 +2,18 @@
   width: 100%;
 }
 
+.root :global .MuiTableBody-root {
+  border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.root :global .MuiTableBody-root .MuiTableRow-root:nth-of-type(odd) {
+  background-color: white;
+}
+
+.root :global .MuiTableBody-root .MuiTableRow-root:nth-of-type(odd) {
+  background-color: rgba(224, 224, 224, 0.3);
+}
+
 .root :global .MuiOutlinedInput-root fieldset {
   border: none;
   outline: none

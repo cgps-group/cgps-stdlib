@@ -13,6 +13,7 @@ import {
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import AddIcon from "@mui/icons-material/Add";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
@@ -81,25 +82,33 @@ function EditableCell(props) {
     }
   }, [initialValue]);
 
+  const updateData = () => {
+    props.table.options.meta?.updateData(props.row.index, value, props.column.id);
+  };
+
   const onBlur = () => {
-    props.table.options.meta?.updateData(props.row.index, value);
+    updateData();
   };
 
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
-      props.table.options.meta?.updateData(props.row.index, value);
+      updateData();
     }
   };
 
   return (
     <TextField
-      onBlur={onBlur}
-      onKeyDown={onKeyDown}
-      onChange={(evt) => setValue(evt.target.value)}
+      fullWidth={true}
       inputRef={inputRef}
-      value={value}
-      size="small"
+      label={props.column.columnDef.meta?.label}
       margin="none"
+      onBlur={onBlur}
+      onChange={(evt) => setValue(evt.target.value)}
+      onKeyDown={onKeyDown}
+      size="small"
+      stepName={props.column.columnDef.meta?.stepName}
+      uiSpec={props.column.columnDef.meta?.uiSpec}
+      value={value}
     />
   );
 }
@@ -108,6 +117,16 @@ EditableCell.propTypes = {
   getValue: PropTypes.func.isRequired,
   row: PropTypes.shape({
     index: PropTypes.number.isRequired,
+  }),
+  column: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    columnDef: PropTypes.shape({
+      meta: PropTypes.shape({
+        label: PropTypes.string,
+        stepName: PropTypes.string,
+        uiSpec: PropTypes.string,
+      }),
+    }),
   }),
   table: PropTypes.shape({
     options: PropTypes.shape({
@@ -135,7 +154,7 @@ function DataTable(props) {
         <TableHead>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              <TableCell style={{ width: 20 }}></TableCell>
+              <TableCell style={{ width: 55 }}></TableCell>
               {headerGroup.headers.map((header) => (
                 <TableCell key={header.id}>
                   {header.isPlaceholder
@@ -146,7 +165,7 @@ function DataTable(props) {
                     )}
                 </TableCell>
               ))}
-              <TableCell style={{ width: 20 }}></TableCell>
+              <TableCell style={{ width: 55 }}></TableCell>
             </TableRow>
           ))}
         </TableHead>
@@ -159,18 +178,14 @@ function DataTable(props) {
               onRowDelete={props.onRowDelete}
             />
           ))}
-          <TableRow onClick={props.onRowAdd}>
-            <TableCell></TableCell>
-            <TableCell align="center">
-              <Button>
-                <AddIcon /> Add
-              </Button>
-            </TableCell>
-            <TableCell></TableCell>
-          </TableRow>
         </TableBody>
       </Table>
-    </DndProvider>
+      <Box textAlign="center" padding={2}>
+        <Button onClick={props.onRowAdd}>
+          <AddIcon /> Add
+        </Button>
+      </Box>
+    </DndProvider >
   );
 }
 DataTable.propTypes = {
@@ -180,7 +195,7 @@ DataTable.propTypes = {
   onRowDragMove: PropTypes.func.isRequired,
   onRowDelete: PropTypes.func.isRequired,
   defaultColumn: PropTypes.shape({
-    cell: PropTypes.node,
+    cell: PropTypes.func,
   }),
   rows: PropTypes.array.isRequired,
 };
