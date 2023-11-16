@@ -6,6 +6,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import TwitterProvider from "next-auth/providers/twitter";
 import GitHubProvider from "next-auth/providers/github";
 import AzureADProvider from "next-auth/providers/azure-ad";
+
 import { boolean } from "boolean";
 
 import logger from "../logger/index.js";
@@ -20,8 +21,7 @@ function createOptions(adapter) {
     // logger,
 
     // @link https://next-auth.js.org/configuration/providers
-    providers: [
-    ],
+    providers: [],
 
     // @link https://next-auth.js.org/configuration/options#session
     session: {
@@ -181,6 +181,59 @@ function createOptions(adapter) {
     );
   }
 
+  if (serverRuntimeConfig.auth["azure-ad"]) {
+    const microsoftLogo = (
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIH" +
+      "dpZHRoPScyMScgaGVpZ2h0PScyMSc+PHBhdGggZmlsbD0nI2YyNTAyMicgZD0nTTEgMWg5djlIMXonLz" +
+      "48cGF0aCBmaWxsPScjMDBhNGVmJyBkPSdNMSAxMWg5djlIMXonLz48cGF0aCBmaWxsPScjN2ZiYTAwJy" +
+      "BkPSdNMTEgMWg5djloLTl6Jy8+PHBhdGggZmlsbD0nI2ZmYjkwMCcgZD0nTTExIDExaDl2OWgtOXonLz" +
+      "48L3N2Zz4="
+    );
+    options.providers.push(
+      AzureADProvider({
+        name: "Microsoft",
+        style: {
+          text: "black",
+          textDark: "white",
+          logo: microsoftLogo,
+          logoDark: microsoftLogo,
+        },
+        ...serverRuntimeConfig.auth["azure-ad"],
+      })
+    );
+  }
+
+  // if (serverRuntimeConfig.auth["azure-ad-b2c"]) {
+  //   options.providers.push(
+  //     AzureADB2CProvider({
+  //       name: "Microsoft",
+  //       style: {
+  //         text: "black",
+  //         textDark: "white",
+  //         logo: microsoftLogo,
+  //         logoDark: microsoftLogo,
+  //       },
+  //       authorization: { params: { scope: "openid profile email" } },
+  //       ...serverRuntimeConfig.auth["azure-ad-b2c"],
+  //     }),
+  //     // AzureADB2CProvider({
+  //     //   ...serverRuntimeConfig.auth["azure-ad-b2c"],
+  //     //   clientId: process.env.AZURE_CLIENT_ID,
+  //     //   clientSecret: process.env.AZURE_CLIENT_SECRET,
+  //     //   scope: `openid profile email ${process.env.AZURE_SCOPE}`,
+  //     //   tenantId: process.env.AZURE_TENANT_ID,
+  //     //   idToken: true,
+  //     //   profile(profile) {
+  //     //     return {
+  //     //       id: profile.oid,
+  //     //       name: profile.name,
+  //     //       email: profile.email,
+  //     //     };
+  //     //   },
+  //     // })
+  //   );
+  // }
+
   if (serverRuntimeConfig.auth.facebook) {
     options.providers.push(
       FacebookProvider(serverRuntimeConfig.auth.facebook)
@@ -196,12 +249,6 @@ function createOptions(adapter) {
   if (serverRuntimeConfig.auth.github) {
     options.providers.push(
       GitHubProvider(serverRuntimeConfig.auth.github)
-    );
-  }
-
-  if (serverRuntimeConfig.auth["azure-ad"]) {
-    options.providers.push(
-      AzureADProvider(serverRuntimeConfig.auth["azure-ad"])
     );
   }
 
