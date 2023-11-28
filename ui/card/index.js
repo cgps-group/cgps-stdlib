@@ -23,8 +23,8 @@ Card.propTypes = {
 function PrimaryActions(props) {
   return (
     <CardActions
-      disableSpacing
       className={styles["main-actions"]}
+      disableSpacing
       variant="outlined"
     >
       {props.children}
