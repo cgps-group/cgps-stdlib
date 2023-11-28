@@ -5,8 +5,7 @@ async function sendEmailMessage(
   message,
   attachments,
   replyToAddress,
-)
-{
+) {
   const smtpRequest = {
     text: message.text,
     to: Array.isArray(toAddress) ? toAddress.join(", ") : toAddress,
