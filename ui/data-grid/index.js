@@ -12,7 +12,7 @@ function GridSection(props) {
   return (
     <Grid
       container
-      spacing={3}
+      spacing={2}
     >
       {
         props.items.map(
@@ -45,26 +45,43 @@ GridSection.propTypes = {
 };
 
 function DataGrid(props) {
+  const orderedItems = React.useMemo(
+    () => {
+      if (props.sortBy) {
+        return props.items.sort(props.sortBy);
+      }
+      else {
+        return props.items;
+      }
+    },
+    [props.sortBy, props.items],
+  );
+
   const groupedItems = React.useMemo(
     () => {
       if (props.groupBy) {
         const groups = {};
-        for (const item of props.items) {
-          const group = props.groupBy(item);
-          if (group in groups) {
-            groups[group].push(item);
+        for (const item of orderedItems) {
+          const groupValue = props.groupBy.group(item);
+          if (groupValue in groups) {
+            groups[groupValue].push(item);
           }
           else {
-            groups[group] = [ item ];
+            groups[groupValue] = [ item ];
           }
         }
-        return Object.entries(groups).sort((a, b) => naturalCompare(a[0], b[0]));
+        if (props.groupBy.order) {
+          return Object.entries(groups).sort(props.groupBy.order);
+        }
+        else {
+          return Object.entries(groups).sort((a, b) => naturalCompare(a[0], b[0]));
+        }
       }
       else {
         return undefined;
       }
     },
-    [props.groupBy, props.items],
+    [props.groupBy, orderedItems],
   );
 
   if (groupedItems) {
@@ -100,7 +117,12 @@ function DataGrid(props) {
 }
 
 DataGrid.propTypes = {
-  Card: PropTypes.func.isRequired,
+  Card: PropTypes.elementType,
+  sortBy: PropTypes.func.isRequired,
+  groupBy: PropTypes.shape({
+    group: PropTypes.func.isRequired,
+    order: PropTypes.func,
+  }),
   cardProps: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
 };
