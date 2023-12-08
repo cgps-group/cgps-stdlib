@@ -1,0 +1,78 @@
+.ui-popover-menu:global(.MuiPopover-paper) {
+  border-radius: 8px;
+  padding: 8px 16px 16px 16px;
+  box-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15) !important;
+  min-width: 200px;
+  max-height: calc(100% - 96px);
+  min-height: 96px;
+}
+
+/*#region Float the header */
+
+.ui-popover-menu :global .mr-header {
+  align-items: center;
+  color: var(--text-secondary);
+  /* display: flex; */
+  height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  /* margin: 8px 0; */
+  padding: 8px 0 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-popover-menu :global .mr-floating-action-buttons {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 4;
+}
+
+/*#endregion*/
+
+.ui-popover-menu :global .mr-action-buttons {
+  position: absolute;
+  top: 8px;
+  right: 48px;
+}
+
+.ui-popover-menu :global .MuiIconButton-root.MuiIconButton-sizeSmall {
+  padding: 8px;
+}
+
+.ui-popover-menu :global .mr-content {
+  padding: 8px 16px;
+}
+
+.ui-popover-menu:global(.mr-fixed-size)
+{
+  min-width: 320px !important;
+  max-width: 320px !important;
+  width: 320px !important;
+  box-sizing: content-box;
+  overflow: hidden;
+  /* padding: 0; */
+  /* overflow-y: auto !important; */
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-popover-menu:global(.mr-fixed-size .mr-scrollable) {
+  /* position: relative; */
+  overflow: hidden;
+  width: 320px;
+  box-sizing: content-box;
+  height: 100%;
+}
+
+.ui-popover-menu:global(.mr-fixed-size:hover .mr-scrollable) {
+  overflow-y: auto !important;
+}
+
+.ui-popover-menu:global(.mr-fixed-size .mr-content)
+{
+  width: 320px;
+  box-sizing: border-box;
+}

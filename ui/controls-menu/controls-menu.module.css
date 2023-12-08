@@ -1,0 +1,141 @@
+/*#region Add a bit of space to the top on the menu to match Google Flights style */
+
+.ui-controls-menu:global(.ui-popover-menu)
+{
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-top: 8px;
+}
+
+/*#endregion*/
+
+
+/*#region Reverse the order of chip contents to match Google Fonts menus (arrows after labels) */
+
+.ui-controls-menu-trigger:global(.MuiChip-root)
+{
+  flex-direction: row-reverse;
+}
+
+.ui-controls-menu-trigger:global(.MuiChip-root) :global .MuiChip-label
+{
+  padding: 0 0 0 6px;
+  margin-top: 1px;
+  /* font-size: 11px; */
+  /* line-height: 1; */
+  /* background-color: red; */
+}
+
+.ui-controls-menu-trigger:global(.MuiChip-root) :global .MuiChip-icon
+{
+  margin: 0;
+}
+
+.ui-controls-menu-trigger:global(.MuiChip-root) :global .MuiChip-deleteIcon
+{
+  margin: 0 -2px 0 4px;
+}
+
+/*#endregion*/
+
+
+/*#region Reset border and background of chip menu trigger to match control buttons */
+
+.ui-controls-menu-trigger:global(.MuiChip-root:not(.MuiChip-filledPrimary))
+{
+  background-color: rgba(224, 224, 224);
+}
+
+.ui-controls-menu-trigger:global(.MuiChip-root)
+{
+  /* background-color: #E0E0E0; */
+  border: none;
+  box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12),0 1px 1px 0 rgba(0,0,0,.24);
+}
+
+.ui-controls-menu-trigger:global(.MuiChip-clickable.MuiChip-outlined:hover),
+.ui-controls-menu-trigger:global(.MuiChip-clickable.MuiChip-outlined:focus),
+.ui-controls-menu-trigger:global(.active.MuiChip-root)
+{
+  /* background: rgb(213, 213, 213); */
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+  /* color: #333; */
+}
+
+/*#endregion*/
+
+
+/*#region Style labels of form controls   */
+
+.ui-controls-menu :global .MuiFormControlLabel-root
+{
+  margin: 0;
+  width: 100%;
+}
+
+/*#endregion*/
+
+
+/*#region Style separators  */
+
+.ui-controls-menu :global hr
+{
+  border-style: solid none none none;
+  border-width: 1px;
+  border-color: #e0e0e0;
+  margin: 7px -16px 8px -16px;
+}
+
+.ui-controls-menu :global .ui-subheader {
+  color: rgb(60, 64, 67);
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
+
+/*#endregion*/
+
+
+/*#region dense list items */
+
+.ui-controls-menu :global .MuiListItem-dense
+{
+  padding: 0 8px;
+}
+.ui-controls-menu :global .MuiListItem-dense .MuiListItemIcon-root
+{
+  min-width: 24px;
+}
+.ui-controls-menu :global .MuiListItem-dense .MuiCheckbox-root
+{
+  padding: 3px;
+}
+
+/*#endregion*/
+
+
+/*#region Undo margins of tabs */
+
+.ui-controls-menu :global .ui-tabs .MuiTabs-root {
+  margin: 0 -8px;
+}
+.ui-controls-menu :global .MuiTabPanel-root {
+  margin: 0;
+}
+
+/*#endregion*/
+
+
+/*#region  */
+
+.ui-controls-menu :global .ui-popover-click-trap {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-controls-menu :global .ui-select.MuiFormControl-root,
+.ui-controls-menu :global .ui-combobox.MuiFormControl-root
+{
+  margin-top: 16px;
+}
+
+/*#endregion*/
