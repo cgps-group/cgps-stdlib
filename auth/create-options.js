@@ -21,6 +21,18 @@ function createOptions(adapter) {
 
     // logger,
 
+    cookies: {
+      pkceCodeVerifier: {
+        name: "next-auth.pkce.code_verifier",
+        options: {
+          httpOnly: true,
+          sameSite: "none",
+          path: "/",
+          secure: true,
+        },
+      },
+    },
+
     // @link https://next-auth.js.org/configuration/providers
     providers: [],
 
