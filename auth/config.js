@@ -23,6 +23,13 @@ if (process.env.AUTH_GOOGLE) {
   };
 }
 
+if (process.env.AUTH_APPLE) {
+  options.apple = {
+    clientId: process.env.AUTH_APPLE_CLIENT_ID,
+    clientSecret: process.env.AUTH_APPLE_CLIENT_SECRET,
+  };
+}
+
 if (process.env.AUTH_AZURE_AD) {
   options["azure-ad"] = {
     clientId: process.env.AUTH_AZURE_AD_CLIENT_ID,
