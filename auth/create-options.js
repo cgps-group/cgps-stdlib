@@ -6,6 +6,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import TwitterProvider from "next-auth/providers/twitter";
 import GitHubProvider from "next-auth/providers/github";
 import AzureADProvider from "next-auth/providers/azure-ad";
+import AppleProvider from "next-auth/providers/apple";
 
 import { boolean } from "boolean";
 
@@ -178,6 +179,13 @@ function createOptions(adapter) {
   if (serverRuntimeConfig.auth.google) {
     options.providers.push(
       GoogleProvider(serverRuntimeConfig.auth.google)
+    );
+  }
+  }
+
+  if (serverRuntimeConfig.auth.apple) {
+    options.providers.push(
+      AppleProvider(serverRuntimeConfig.auth.apple)
     );
   }
 
