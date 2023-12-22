@@ -198,6 +198,8 @@ function createOptions(adapter) {
           "logo": microsoftLogo,
           "logoDark": microsoftLogo,
         },
+        "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+        "token": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
         ...serverRuntimeConfig.auth["azure-ad"],
       })
     );
