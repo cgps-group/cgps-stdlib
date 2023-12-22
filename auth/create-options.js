@@ -181,7 +181,6 @@ function createOptions(adapter) {
       GoogleProvider(serverRuntimeConfig.auth.google)
     );
   }
-  }
 
   if (serverRuntimeConfig.auth.apple) {
     options.providers.push(
