@@ -195,8 +195,15 @@ function createOptions(adapter) {
   }
 
   if (serverRuntimeConfig.auth.apple) {
+    const appleLogo = (
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjQgMzIgMzc2LjQgNDQ5LjQiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CiAgPHRpdGxlPkFwcGxlIGljb248L3RpdGxlPgogIDxwYXRoIGZpbGw9IiMwMDAiIGQ9Ik0zMTguNyAyNjguN2MtLjItMzYuNyAxNi40LTY0LjQgNTAtODQuOC0xOC44LTI2LjktNDcuMi00MS43LTg0LjctNDQuNi0zNS41LTIuOC03NC4zIDIwLjctODguNSAyMC43LTE1IDAtNDkuNC0xOS43LTc2LjQtMTkuN0M2My4zIDE0MS4yIDQgMTg0LjggNCAyNzMuNXEwIDM5LjMgMTQuNCA4MS4yYzEyLjggMzYuNyA1OSAxMjYuNyAxMDcuMiAxMjUuMiAyNS4yLS42IDQzLTE3LjkgNzUuOC0xNy45IDMxLjggMCA0OC4zIDE3LjkgNzYuNCAxNy45IDQ4LjYtLjcgOTAuNC04Mi41IDEwMi42LTExOS4zLTY1LjItMzAuNy02MS43LTkwLTYxLjctOTEuOXptLTU2LjYtMTY0LjJjMjcuMy0zMi40IDI0LjgtNjEuOSAyNC03Mi41LTI0LjEgMS40LTUyIDE2LjQtNjcuOSAzNC45LTE3LjUgMTkuOC0yNy44IDQ0LjMtMjUuNiA3MS45IDI2LjEgMiA0OS45LTExLjQgNjkuNS0zNC4zeiIvPgo8L3N2Zz4="
+    );
     options.providers.push(
-      AppleProvider(serverRuntimeConfig.auth.apple)
+      AppleProvider({
+        "name": "Apple",
+        "logo": appleLogo,
+        ...serverRuntimeConfig.auth.apple,
+      })
     );
   }
 
@@ -215,7 +222,6 @@ function createOptions(adapter) {
           "text": "black",
           "textDark": "white",
           "logo": microsoftLogo,
-          "logoDark": microsoftLogo,
         },
         "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
         "token": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
