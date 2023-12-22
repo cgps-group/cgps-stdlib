@@ -191,12 +191,12 @@ function createOptions(adapter) {
     );
     options.providers.push(
       AzureADProvider({
-        name: "Microsoft",
-        style: {
-          text: "black",
-          textDark: "white",
-          logo: microsoftLogo,
-          logoDark: microsoftLogo,
+        "name": "Microsoft",
+        "style": {
+          "text": "black",
+          "textDark": "white",
+          "logo": microsoftLogo,
+          "logoDark": microsoftLogo,
         },
         ...serverRuntimeConfig.auth["azure-ad"],
       })
