@@ -201,7 +201,7 @@ function createOptions(adapter) {
     options.providers.push(
       AppleProvider({
         "name": "Apple",
-        "logo": appleLogo,
+        // "logo": appleLogo,
         ...serverRuntimeConfig.auth.apple,
       })
     );
@@ -219,8 +219,8 @@ function createOptions(adapter) {
       AzureADProvider({
         "name": "Microsoft",
         "style": {
-          "text": "black",
-          "textDark": "white",
+        //   "text": "black",
+        //   "textDark": "white",
           "logo": microsoftLogo,
         },
         "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
