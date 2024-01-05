@@ -202,7 +202,8 @@ function createOptions(adapter) {
       AppleProvider({
         "name": "Apple",
         "style": {
-          "text": "black",
+          "bg": "#ffffff",
+          "text": "#000000",
           "logo": appleLogo,
         },
         ...serverRuntimeConfig.auth.apple,
@@ -222,8 +223,8 @@ function createOptions(adapter) {
       AzureADProvider({
         "name": "Microsoft",
         "style": {
-          "text": "black",
-          //   "textDark": "white",
+          "text": "#000000",
+          "bg": "#ffffff",
           "logo": microsoftLogo,
         },
         "authorization": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
@@ -265,11 +266,13 @@ function createOptions(adapter) {
   // }
 
   if (serverRuntimeConfig.auth.facebook) {
+    const facebookLogo = `data:image/svg+xml;base64,PHN2ZyBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBpbWFnZS1yZW5kZXJpbmc9Im9wdGltaXplUXVhbGl0eSIgc2hhcGUtcmVuZGVyaW5nPSJnZW9tZXRyaWNQcmVjaXNpb24iIHRleHQtcmVuZGVyaW5nPSJnZW9tZXRyaWNQcmVjaXNpb24iIHZpZXdCb3g9IjY3MDIuNzcgMTgzMDkuMTcgNjU2MS42NiA2NTYxLjY2MDAwMDAwMDAwNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNOTk4My42IDE4MzA5LjE3YzE4MTEuOTUgMCAzMjgwLjgzIDE0NjguODggMzI4MC44MyAzMjgwLjgzcy0xNDY4Ljg4IDMyODAuODMtMzI4MC44MyAzMjgwLjgzUzY3MDIuNzcgMjM0MDEuOTUgNjcwMi43NyAyMTU5MHMxNDY4Ljg4LTMyODAuODMgMzI4MC44My0zMjgwLjgzeiIgZmlsbD0iIzAwNmFmZiIvPgogIDxwYXRoIGQ9Ik0xMDQwOS44OSAyNDg0My4yOXYtMjUzNC4xN2g3MTQuNDNsOTQuNy04OTEuOTFoLTgwOS4xM2wxLjItNDQ2LjQ0YzAtMjMyLjYzIDIyLjEtMzU3LjIyIDM1Ni4yNC0zNTcuMjJoNDQ2LjY4di04OTIuMDZoLTcxNC41OWMtODU4LjM1IDAtMTE2MC40MiA0MzIuNjUtMTE2MC40MiAxMTYwLjM0djUzNS40NWgtNTM1LjA3djg5MS45OUg5MzM5djI0OTguMDljMjA4LjQ1IDQxLjUzIDQyMy45NSA2My40NyA2NDQuNiA2My40N2EzMzEwLjkgMzMxMC45IDAgMCAwIDQyNi4yOS0yNy41NHoiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0ibm9uemVybyIvPgo8L3N2Zz4=`;
     options.providers.push(
       FacebookProvider({
-        style: {
-          text: "black",
-          textDark: "white",
+        "style": {
+          "text": "#000000",
+          "bg": "#ffffff",
+          "logo": facebookLogo,
         },
         ...serverRuntimeConfig.auth.facebook,
       })
@@ -284,10 +287,9 @@ function createOptions(adapter) {
       TwitterProvider({
         name: "Twitter",
         style: {
-          text: "black",
-          textDark: "white",
-          logo: twitterLogo,
-          logoDark: twitterLogo,
+          "text": "#000000",
+          "bg": "#ffffff",
+          "logo": twitterLogo,
         },
         ...serverRuntimeConfig.auth.twitter,
       })
