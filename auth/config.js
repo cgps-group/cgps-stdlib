@@ -61,6 +61,26 @@ if (process.env.AUTH_GOOGLE) {
   };
 }
 
+if (process.env.AUTH_LDAP) {
+  options.ldap = {
+    "name": process.env.AUTH_LDAP_NAME,
+    "url": process.env.AUTH_LDAP_URL,
+    "bindDn": process.env.AUTH_LDAP_BIND_DN,
+    "bindCredentials": process.env.AUTH_LDAP_BIND_CREDENTIALS,
+    "searchBase": process.env.AUTH_LDAP_SEARCH_BASE,
+    "searchFilter": process.env.AUTH_LDAP_SEARCH_FILTER,
+    "searchAttributes": process.env.AUTH_LDAP_SEARCH_ATTRIBUTES ? process.env.AUTH_LDAP_SEARCH_ATTRIBUTES.split(",") : undefined,
+    "nameAttribute": process.env.AUTH_LDAP_NAME_ATTRIBUTE,
+    "emailAttribute": process.env.AUTH_LDAP_EMAIL_ATTRIBUTE,
+    "idAttribute": process.env.AUTH_LDAP_ID_ATTRIBUTE,
+    "groupDn": process.env.AUTH_LDAP_GROUP_DN,
+    "groupSearchBase": process.env.AUTH_LDAP_GROUP_SEARCH_BASE,
+    "groupSearchFilter": process.env.AUTH_LDAP_GROUP_SEARCH_FILTER,
+    "groupSearchScope": process.env.AUTH_LDAP_GROUP_SEARCH_SCOPE,
+    "groupSearchAttributes": process.env.AUTH_LDAP_GROUP_SEARCH_ATTRIBUTES ? process.env.AUTH_LDAP_GROUP_SEARCH_ATTRIBUTES.split(",") : undefined,
+  };
+}
+
 if (process.env.AUTH_TWITTER) {
   options.twitter = {
     clientId: process.env.AUTH_TWITTER_CLIENT_ID,
