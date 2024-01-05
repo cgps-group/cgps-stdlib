@@ -3,7 +3,11 @@
 const CredentialsProvider = require("next-auth/providers/credentials").default;
 const LdapAuth = require("ldapauth-fork");
 
-const logger = require("../../logger/index.js");
+function normaliseImport(m) {
+  return m.default ?? m;
+}
+
+const logger = normaliseImport(require("../../logger/index.js"));
 
 function login(config, credentials) {
   const client = new LdapAuth(config);
