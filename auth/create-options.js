@@ -79,9 +79,9 @@ function createOptions(adapter) {
        * @return {boolean}         Return `true` (or a modified JWT) to allow sign in
        *                           Return `false` to deny access
        */
-      signIn: async ({ user, account, profile, email, credentials }) => {
+      signIn: async ({ user, account, profile, email }) => {
         logger.debug(
-          { user, account, profile, email, credentials },
+          { user, account, profile, email },
           "signin",
         );
         if (serverRuntimeConfig.auth.allowedUsers && !serverRuntimeConfig.auth.allowedUsers.includes(user.email)) {
