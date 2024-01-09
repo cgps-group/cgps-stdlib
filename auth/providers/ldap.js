@@ -60,6 +60,17 @@ module.exports = function (options, adapter) {
         // Essentially promisify the LDAPJS client.bind function
         const profile = await login(config, credentials);
 
+        logger.debug(
+          {
+            config: {
+              ...config,
+              "bindCredentials": "*".repeat(config?.bindCredentials?.length),
+            },
+            profile,
+          },
+          "ldap authorize",
+        );
+
         if (profile === null) {
           return null;
         }
