@@ -73,7 +73,7 @@ if (process.env.AUTH_LDAP) {
     "nameAttribute": process.env.AUTH_LDAP_NAME_ATTRIBUTE,
     "emailAttribute": process.env.AUTH_LDAP_EMAIL_ATTRIBUTE,
     "idAttribute": process.env.AUTH_LDAP_ID_ATTRIBUTE,
-    "groupDn": process.env.AUTH_LDAP_GROUP_DN,
+    "groupDnProperty": process.env.AUTH_LDAP_GROUP_DN_PROPERTY,
     "groupSearchBase": process.env.AUTH_LDAP_GROUP_SEARCH_BASE,
     "groupSearchFilter": process.env.AUTH_LDAP_GROUP_SEARCH_FILTER,
     "groupSearchScope": process.env.AUTH_LDAP_GROUP_SEARCH_SCOPE,
