@@ -17,6 +17,7 @@ module.exports = function createTheme(theme) {
     "--background-hover": theme.background.hover,
     "--background-disabled": theme.background.disabled,
     "--headline-font": theme.fonts.headline,
+    "--body-font": theme.fonts.body,
   };
 
   // Create a theme instance.
