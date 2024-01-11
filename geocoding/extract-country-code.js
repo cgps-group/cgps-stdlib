@@ -1,6 +1,7 @@
 const GeoJsonGeometriesLookup = require("geojson-geometries-lookup");
 const getCountryISO2 = require("country-iso-3-to-2");
 const geojson = require("@geo-maps/countries-maritime-5m")();
+const { lookUp } = require("geojson-places");
 
 const lookup = new GeoJsonGeometriesLookup(geojson);
 
@@ -28,6 +29,11 @@ function extractCountryCode(
   longitude,
   latitude,
 ) {
+  const result = lookUp(latitude, longitude);
+  if (result) {
+    return result["country_a3"];
+  }
+
   const point = {
     "type": "Point",
     "coordinates": [longitude, latitude],
