@@ -41,6 +41,17 @@ class ShareDialog extends React.PureComponent {
                       hasAlias={props.hasAlias}
                       linkLabel={props.linkLabel}
                       linkUrl={accessData.linkUrl}
+                      alias={accessData.alias}
+                      aliasUrl={accessData.aliasUrl}
+                      onAliasChange={async (alias) => {
+                        const flag = await props.onAliasChange(alias);
+                        if (flag) {
+                          mutate();
+                        }
+                        return flag;
+                      }}
+                      defaultAlias={props.defaultAlias}
+                      aliasPrefix={props.aliasPrefix}
                     />
 
                     <ProjectAccessLevelSection
@@ -91,10 +102,13 @@ class ShareDialog extends React.PureComponent {
 ShareDialog.propTypes = {
   accessLabel: PropTypes.string,
   accessOptions: PropTypes.array.isRequired,
+  aliasPrefix: PropTypes.string,
   dataHook: PropTypes.func.isRequired,
+  defaultAlias: PropTypes.string,
   hasAlias: PropTypes.bool,
   linkLabel: PropTypes.string,
   onAccessChange: PropTypes.func.isRequired,
+  onAliasChange: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   onRevokeInvitation: PropTypes.func.isRequired,
   onSendInvitation: PropTypes.func.isRequired,
