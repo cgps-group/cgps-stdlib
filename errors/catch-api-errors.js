@@ -12,7 +12,7 @@ export default function catchApiErrors(handler) {
       return await handler(request, response);
     }
     catch (err) {
-      if (err instanceof ApiError || err.isApiError()) {
+      if (err instanceof ApiError || err.isApiError?.()) {
         response.statusCode = err.statusCode;
         response.statusMessage = err.message;
         response.end(err.message);
