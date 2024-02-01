@@ -10,7 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
+    "gravatar": "^1.8.2",
     "ldapauth-fork": "^5.0.2",
+    "ldapjs": "^3.0.7",
+    "react-copy-to-clipboard": "^5.1.0",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5"
   },
