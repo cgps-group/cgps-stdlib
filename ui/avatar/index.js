@@ -2,38 +2,7 @@ import Avatar from "@mui/material/Avatar";
 import gravatar from "gravatar";
 import PropTypes from "prop-types";
 import React from "react";
-
-function stringToColor(string) {
-  let hash = 0;
-  let i;
-
-  /* eslint-disable no-bitwise */
-  for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  let color = "#";
-
-  for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff;
-    color += `00${value.toString(16)}`.slice(-2);
-  }
-  /* eslint-enable no-bitwise */
-
-  return color;
-}
-
-function stringAvatar(name) {
-  const [firstName, secondName] = name.split(" ") || [name, ""];
-  const firstLetter = firstName[0];
-  const secondLetter = secondName?.[0] || "";
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-    },
-    children: `${firstLetter}${secondLetter}`,
-  };
-}
+import stc from "string-to-color";
 
 const Gravatar = (props) => (
   <Avatar
@@ -47,16 +16,23 @@ Gravatar.propTypes = {
   title: PropTypes.bool,
 };
 
-const StringAvatar = (props) => (
-  <Avatar
-    title={props.title === false ? undefined : props.string}
-    {...stringAvatar(props.string)}
-  />
-);
+const StringAvatar = (props) => {
+  const [firstName, secondName] = props.string.split(" ") || [props.string, ""];
+  const firstLetter = firstName[0];
+  const secondLetter = secondName?.[0] || "";
+  return (
+    <Avatar
+      title={props.title === false ? undefined : props.string}
+      style={{ bgcolor: stc(props.string) }}
+    >
+      {`${firstLetter.toUpperCase()}${secondLetter.toUpperCase()}`}
+    </Avatar>
+  );
+};
 
 StringAvatar.propTypes = {
   title: PropTypes.bool,
-  string: PropTypes.bool,
+  string: PropTypes.string.isRequired,
 };
 
 const UiAvatar = (props) => {
