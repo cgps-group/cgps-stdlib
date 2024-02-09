@@ -1,12 +1,33 @@
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+// import TabContext from "@mui/material/TabContext";
+// import TabList from "@mui/material/TabList";
+// import TabPanel from "@mui/material/TabPanel";
 
 import nextAnimation from "../../browser/next-animation.js";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 
 class UiTabs extends React.PureComponent {
 
@@ -41,52 +62,51 @@ class UiTabs extends React.PureComponent {
     const tabs = props.children.filter((x) => !!x);
 
     return (
-      <TabContext value={state.value}>
-        <div
-          className={
-            classnames(
-              "mr-ui-tabs",
-              props.className,
-            )
-          }
-          style={props.style}
+      <div
+        className={
+          classnames(
+            "mr-ui-tabs",
+            props.className,
+          )
+        }
+        style={props.style}
+      >
+        <Tabs
+          value={state.value}
+          onChange={this.handleChange}
+          variant="fullWidth"
+          indicatorColor="primary"
+          textColor="primary"
         >
-          <TabList
-            onChange={this.handleChange}
-            variant="fullWidth"
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            {
-              tabs.map(
-                (tab, index) => {
-                  return (
-                    <Tab
-                      key={tab.props.label || tab.key || index}
-                      label={tab.props.label || index}
-                      value={index.toString()}
-                    />
-                  );
-                }
-              )
-            }
-          </TabList>
           {
             tabs.map(
               (tab, index) => {
                 return (
-                  <TabPanel
+                  <Tab
                     key={tab.props.label || tab.key || index}
+                    label={tab.props.label || index}
                     value={index.toString()}
-                  >
-                    { tab.props.children }
-                  </TabPanel>
+                  />
                 );
               }
             )
           }
-        </div>
-      </TabContext>
+        </Tabs>
+        {
+          tabs.map(
+            (tab, index) => {
+              return (
+                <TabPanel
+                  key={tab.props.label || tab.key || index}
+                  value={index.toString()}
+                >
+                  { tab.props.children }
+                </TabPanel>
+              );
+            }
+          )
+        }
+      </div>
     );
   }
 
