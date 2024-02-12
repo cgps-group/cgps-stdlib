@@ -16,6 +16,7 @@
     "gravatar": "^1.8.2",
     "ldapauth-fork": "^5.0.2",
     "ldapjs": "^3.0.7",
+    "opencage-api-client": "^1.0.4",
     "react-copy-to-clipboard": "^5.1.0",
     "string-to-color": "^2.2.2",
     "winston": "^3.3.3",
