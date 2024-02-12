@@ -8,3 +8,20 @@
 .card:hover {
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
 }
+
+.header {
+  height: 16px;
+  padding: 10px;
+  letter-spacing: .07272727em;
+  /* font-size: .6875rem; */
+  font-weight: 500;
+  line-height: 1rem;
+  text-transform: uppercase;
+  align-items: center;
+  color: #5f6368;
+  display: flex;
+  padding: 10px 0 10px 10px;
+  max-height: 20px;
+  box-sizing: content-box;
+  margin-top: 8px;
+}

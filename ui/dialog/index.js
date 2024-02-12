@@ -25,12 +25,14 @@ class UiDialog extends React.PureComponent {
     });
   }
 
-  close = () => {
-    if (this.props.onClose) {
-      this.props.onClose();
-    }
-    else {
-      this.setState({ isDialogOpen: false });
+  close = (event, reason) => {
+    if (reason !== "backdropClick") {
+      if (this.props.onClose) {
+        this.props.onClose();
+      }
+      else {
+        this.setState({ isDialogOpen: false });
+      }
     }
   }
 
@@ -53,7 +55,7 @@ class UiDialog extends React.PureComponent {
           )
         }
         // container={getContainerElement}
-        disableBackdropClick
+        // disableBackdropClick
         fullWidth
         maxWidth={props.maxWidth}
         onClose={this.close}

@@ -3,7 +3,11 @@
 const CredentialsProvider = require("next-auth/providers/credentials").default;
 const LdapAuth = require("ldapauth-fork");
 
-const logger = require("../../logger/index.js");
+function normaliseImport(m) {
+  return m.default ?? m;
+}
+
+const logger = normaliseImport(require("../../logger/index.js"));
 
 function login(config, credentials) {
   const client = new LdapAuth(config);
@@ -55,6 +59,17 @@ module.exports = function (options, adapter) {
       async authorize(credentials, req) {
         // Essentially promisify the LDAPJS client.bind function
         const profile = await login(config, credentials);
+
+        logger.debug(
+          {
+            config: {
+              ...config,
+              "bindCredentials": "*".repeat(config?.bindCredentials?.length),
+            },
+            profile,
+          },
+          "ldap authorize",
+        );
 
         if (profile === null) {
           return null;

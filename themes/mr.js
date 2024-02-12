@@ -28,8 +28,8 @@ const theme = {
     contrast: "#000000",
   },
   fonts: {
-    headline: `"Plus Jakarta Sans", "Helvetica", "Arial", sans-serif`,
-    body: `"Work Sans", "Helvetica", "Arial", sans-serif`,
+    headline: `"Space Grotesk", "Helvetica", "Arial", sans-serif`,
+    body: `"Open Sans", "Helvetica", "Arial", sans-serif`,
   },
 };
 

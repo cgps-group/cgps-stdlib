@@ -95,8 +95,8 @@ class ProjectAccessLinkSection extends React.PureComponent {
 
   saveAlias = async (alias) => {
     const { props } = this;
-    const flag = await props.onUpdateAlias(alias || null);
-    if (flag) {
+    const okFlag = await props.onAliasChange(alias || null);
+    if (okFlag) {
       this.resetAlias();
     }
     else {
@@ -239,7 +239,7 @@ ProjectAccessLinkSection.propTypes = {
   hasAlias: PropTypes.bool,
   linkLabel: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
-  onUpdateAlias: PropTypes.func.isRequired,
+  onAliasChange: PropTypes.func,
 };
 
 ProjectAccessLinkSection.defaultProps = {

@@ -23,6 +23,7 @@ import { useSnackbar } from "notistack";
 
 import UiAvatar from "cgps-stdlib/ui/avatar/index.js";
 import UiSelect from "cgps-stdlib/ui/select/index.js";
+import UiLoadingBar from "cgps-stdlib/ui/loading-bar/index.js";
 import { Divider } from "@mui/material";
 
 const AutocompletePopper = function (props) {
@@ -104,8 +105,15 @@ const RolesSelect = (props) => {
       defaultRole="viewer"
     >
       {
-        props.hasRemoveAccess && (
+        (props.hasRemoveAccess || props.hasResendInvitation) && (
           <Divider />
+        )
+      }
+      {
+        props.hasResendInvitation && (
+          <UiSelect.Item value="resend-invitation">
+            Resend invitation
+          </UiSelect.Item>
         )
       }
       {
@@ -119,6 +127,133 @@ const RolesSelect = (props) => {
   );
 };
 
+RolesSelect.propTypes = {
+  hasRemoveAccess: PropTypes.bool,
+  hasResendInvitation: PropTypes.bool,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  roles: PropTypes.array,
+  value: PropTypes.string,
+};
+
+const ProjectAccessListItem = (props) => {
+  const [sendingStatus, setSendingStatus] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleRemoveAccess = (email) => {
+    setSendingStatus(true);
+    props.onRevokeInvitation(email)
+      .then(() => {
+        enqueueSnackbar("Access has been removed", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar(err.message, { variant: "error" });
+      })
+      .then(() => setSendingStatus(false));
+  };
+
+  const handleSendInvitation = (emails, role) => {
+    setSendingStatus(true);
+    props.onSendInvitation(emails, role)
+      .then(() => {
+        setEmails([]);
+        enqueueSnackbar("Invitation email has been resent", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar(err.message, { variant: "error" });
+      })
+      .then(() => setSendingStatus(false));
+
+  };
+
+  return (
+    <ListItem
+      key={props.email}
+      dense
+    >
+      <ListItemAvatar>
+        <UiAvatar
+          email={props.email}
+        />
+      </ListItemAvatar>
+      <ListItemText
+        primary={props.email}
+        secondary={
+          (props.kind === "user") ? `Added on ${new Date(props.createdAt).toLocaleDateString()}` :
+            (props.kind === "invitation") ? `Invited on ${new Date(props.createdAt).toLocaleDateString()}` :
+              null
+        }
+      />
+      <ListItemSecondaryAction>
+        {
+          <RolesSelect
+            onChange={(newRole) => {
+              if (newRole === "remove-access") {
+                handleRemoveAccess(props.email);
+              }
+              else if (newRole === "resend-invitation") {
+                handleSendInvitation([props.email], props.role);
+              }
+              else {
+                props.onRoleChange(props.email, newRole, props.shares);
+              }
+            }}
+            roles={props.roles}
+            value={props.role}
+            hasRemoveAccess
+            hasResendInvitation={props.kind === "invitation"}
+          />
+        }
+        {/* {
+          (share.kind === "invitation") && (
+            <Button
+              title="Resend invitation email"
+              disabled={sendingStatus}
+              onClick={
+                () => {
+                  setSendingStatus(true);
+                  props.onSendInvitation([share.email], role)
+                    .then(() => {
+                      setEmails([]);
+                      enqueueSnackbar("Invitation email has been resent", { variant: "success" });
+                    })
+                    .catch((err) => {
+                      enqueueSnackbar(err.message, { variant: "error" });
+                    })
+                    .then(() => setSendingStatus(false));
+                }
+              }
+            >
+              Resend
+              {sendingStatus && <CircularProgress size={24} />}
+            </Button>
+          )
+        } */}
+        {/* <IconButton
+          title="Remove user"
+          onClick={
+            () => handleRemoveAccess(share.email)
+          }
+        >
+          <DeleteRoundedIcon />
+        </IconButton> */}
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+};
+
+ProjectAccessListItem.propTypes = {
+  email: PropTypes.string,
+  kind: PropTypes.string,
+  role: PropTypes.string,
+  createdAt: PropTypes.string,
+  onRevokeInvitation: PropTypes.func.isRequired,
+  onRoleChange: PropTypes.func.isRequired,
+  onSendInvitation: PropTypes.func.isRequired,
+  roles: PropTypes.array.isRequired,
+  shares: PropTypes.array.isRequired,
+};
+
 const ProjectAccessSharingSection = (props) => {
   const [emails, setEmails] = React.useState([]);
   const [role, setRole] = React.useState(props.defaultRole ?? props.roles?.[0]?.value);
@@ -130,6 +265,19 @@ const ProjectAccessSharingSection = (props) => {
     props.onRevokeInvitation(email)
       .then(() => {
         enqueueSnackbar("Access has been removed", { variant: "success" });
+      })
+      .catch((err) => {
+        enqueueSnackbar(err.message, { variant: "error" });
+      })
+      .then(() => setSendingStatus(false));
+  };
+
+  const handleSendInvitation = (invitationEmails, invitationRole) => {
+    setSendingStatus(true);
+    return props.onSendInvitation(invitationEmails, invitationRole)
+      .then(() => {
+        setEmails([]);
+        enqueueSnackbar("Invitation email has been resent", { variant: "success" });
       })
       .catch((err) => {
         enqueueSnackbar(err.message, { variant: "error" });
@@ -173,23 +321,25 @@ const ProjectAccessSharingSection = (props) => {
                 />
                 <ListItemSecondaryAction>
                   {
-                    (share.kind === "user") && (
-                      <RolesSelect
-                        onChange={(newRole) => {
-                          if (newRole === "remove-access") {
-                            handleRemoveAccess(share.email);
-                          }
-                          else {
-                            props.onRoleChange(share.email, newRole, props.shares);
-                          }
-                        }}
-                        roles={props.roles}
-                        value={share.role}
-                        hasRemoveAccess
-                      />
-                    )
+                    <RolesSelect
+                      onChange={(newRole) => {
+                        if (newRole === "remove-access") {
+                          handleRemoveAccess(share.email);
+                        }
+                        else if (newRole === "resend-invitation") {
+                          handleSendInvitation([share.email], share.role);
+                        }
+                        else {
+                          props.onRoleChange(share.email, newRole, props.shares);
+                        }
+                      }}
+                      roles={props.roles}
+                      value={share.role}
+                      hasRemoveAccess
+                      hasResendInvitation={share.kind === "invitation"}
+                    />
                   }
-                  {
+                  {/* {
                     (share.kind === "invitation") && (
                       <Button
                         title="Resend invitation email"
@@ -213,7 +363,7 @@ const ProjectAccessSharingSection = (props) => {
                         {sendingStatus && <CircularProgress size={24} />}
                       </Button>
                     )
-                  }
+                  } */}
                   {/* <IconButton
                     title="Remove user"
                     onClick={
@@ -253,15 +403,7 @@ const ProjectAccessSharingSection = (props) => {
                 onClick={
                   () => {
                     setSendingStatus(true);
-                    props.onSendInvitation(emails, role)
-                      .then(() => {
-                        setEmails([]);
-                        enqueueSnackbar("Invitation email has been sent", { variant: "success" });
-                      })
-                      .catch((err) => {
-                        enqueueSnackbar(err.message, { variant: "error" });
-                      })
-                      .then(() => setSendingStatus(false));
+                    handleSendInvitation(emails, role);
                   }
                 }
               >
@@ -271,9 +413,9 @@ const ProjectAccessSharingSection = (props) => {
             </div>
           )
         }
-
       </List>
 
+      {sendingStatus && <UiLoadingBar size={24} />}
     </Paper>
   );
 };
@@ -282,6 +424,7 @@ ProjectAccessSharingSection.propTypes = {
   defaultRole: PropTypes.string.isRequired,
   emailsDataHook: PropTypes.func.isRequired,
   onRevokeInvitation: PropTypes.func.isRequired,
+  onRoleChange: PropTypes.func.isRequired,
   onSendInvitation: PropTypes.func.isRequired,
   roleLabel: PropTypes.string.isRequired,
   roles: PropTypes.array.isRequired,
