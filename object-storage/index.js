@@ -7,6 +7,9 @@ const {
   GetObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
+  CopyObject,
+  CopyObjectCommand,
+  DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
@@ -122,6 +125,21 @@ async function retrieve(bucket, key, decompress = false) {
   }
 }
 
+async function move(bucket, sourceKey, targetKey) {
+  const copyCommand = new CopyObjectCommand({
+    Bucket: bucket,
+    CopySource: sourceKey,
+    Key: targetKey,
+  });
+  await client.send(copyCommand);
+
+  const deleteCommand = new DeleteObjectCommand({
+    Bucket: bucket,
+    Key: sourceKey,
+  });
+  await client.send(deleteCommand);
+}
+
 module.exports = {
   exists,
   generateSignedGetUrl,
@@ -129,4 +147,5 @@ module.exports = {
   generateUrl,
   retrieve,
   store,
+  move,
 };
