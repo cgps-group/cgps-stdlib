@@ -1,12 +1,11 @@
-const { encode } = require("next-auth/jwt");
-const getConfig = require("next/config").default;
+import { encode } from "next-auth/jwt";
 
-const requireUserMiddleware = require('./require-user');
+import serverRuntimeConfig from "../config/server-runtime-config.js";
 
-module.exports = async function (req, res) {
-  const user = await requireUserMiddleware(req, res);
+import requireUserMiddleware from "./require-user.js";
 
-  const { serverRuntimeConfig } = getConfig();
+async function createAccessToken(req, res, adapter) {
+  const user = await requireUserMiddleware(req, res, adapter);
 
   const accessToken = await encode({
     token: { id: user.id },
@@ -15,4 +14,6 @@ module.exports = async function (req, res) {
   });
 
   return accessToken;
-};
+}
+
+export default createAccessToken;
