@@ -128,7 +128,7 @@ async function retrieve(bucket, key, decompress = false) {
 async function move(bucket, sourceKey, targetKey) {
   const copyCommand = new CopyObjectCommand({
     Bucket: bucket,
-    CopySource: sourceKey,
+    CopySource: `/${bucket}/${sourceKey}`,
     Key: targetKey,
   });
   await client.send(copyCommand);
