@@ -81,8 +81,14 @@ async function generateSignedUploadUrl(bucket, key) {
   );
 }
 
-async function store(bucket, key, data, compress = false) {
+async function store(
+  bucket,
+  key,
+  data,
+  compress = false,
+) {
   const passThroughStream = new stream.PassThrough();
+
   const uploadsRequest = new Upload({
     client,
     params: {
