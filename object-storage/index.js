@@ -7,7 +7,6 @@ const {
   GetObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
-  CopyObject,
   CopyObjectCommand,
   DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
@@ -69,7 +68,7 @@ async function generateSignedGetUrl(bucket, key) {
   );
 }
 
-async function generateSignedUploadUrl(bucket, key) {
+async function generateSignedUploadUrl(bucket, key, expiresInHours = 1) {
   const command = new PutObjectCommand({
     Bucket: bucket,
     Key: key,
@@ -77,7 +76,7 @@ async function generateSignedUploadUrl(bucket, key) {
   return getSignedUrl(
     client,
     command,
-    { expiresIn: 24 * 3600 },
+    { expiresIn: expiresInHours * 3600 },
   );
 }
 
