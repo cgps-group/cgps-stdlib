@@ -77,7 +77,7 @@ async function generateSignedUploadUrl(bucket, key) {
   return getSignedUrl(
     client,
     command,
-    { expiresIn: 3600 },
+    { expiresIn: 24 * 3600 },
   );
 }
 
