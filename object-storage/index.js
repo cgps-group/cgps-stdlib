@@ -56,7 +56,7 @@ async function generateUrl(bucket, key) {
   return url.href;
 }
 
-async function generateSignedGetUrl(bucket, key) {
+async function generateSignedGetUrl(bucket, key, expiresInHours = 1) {
   const command = new GetObjectCommand({
     Bucket: bucket,
     Key: key,
@@ -64,7 +64,7 @@ async function generateSignedGetUrl(bucket, key) {
   return getSignedUrl(
     client,
     command,
-    { expiresIn: 3600 },
+    { expiresIn: expiresInHours * 3600 },
   );
 }
 
