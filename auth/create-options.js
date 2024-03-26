@@ -345,6 +345,7 @@ function createOptions(adapter) {
           id: profile[options.idAttribute ?? "sub"],
           name: profile[options.nameAttribute ?? "name"],
           email: profile[options.emailAttribute ?? "email"],
+          groups: profile[options.groupsAttribute ?? "groups"],
         };
       },
     });
