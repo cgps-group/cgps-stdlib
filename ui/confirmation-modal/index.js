@@ -12,7 +12,7 @@ function ConfirmationModal(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenModal = () => {
-    setIsOpen(true);
+    !props.isDisabled && setIsOpen(true);
   };
 
   const handleConfirm = () => {
@@ -62,6 +62,7 @@ ConfirmationModal.propTypes = {
   title: PropTypes.string,
   message: PropTypes.node,
   onConfirm: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool,
   onClose: PropTypes.func,
   children: PropTypes.node,
 };
