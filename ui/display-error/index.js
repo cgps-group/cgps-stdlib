@@ -19,7 +19,14 @@ function ErrorDetails(props) {
       }
       {
         props?.error?.stack && (
-          <Typography element="pre">
+          <Typography element="pre" textAlign={"left"} variant="body2" sx={{
+            fontFamily: 'monospace',
+            whiteSpace: 'pre-wrap',
+            backgroundColor: '#f5f5f5',
+            padding: '8px',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+          }}>
             {props.error.stack}
           </Typography>
         )
@@ -43,12 +50,13 @@ ErrorDetails.propTypes = {
 function DisplayError(props) {
   return (
     <div>
-      <Typography
-        color="textSecondary"
-        variant={props.variant}
-      >
-        {props.message}
-      </Typography>
+      {!!props.message && (
+        <Typography
+          color="textSecondary"
+          variant={props.variant}
+        >
+          {props.message}
+        </Typography>)}
       {
         process.env.NODE_ENV === "development" && (
           <ErrorDetails error={props.error} />
