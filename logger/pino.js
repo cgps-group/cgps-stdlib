@@ -9,19 +9,14 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const logger = pino({
-  bindings: (bindings) => {
-    return {
-      host: bindings.hostname,
-      node: process.version,
-      pid: bindings.pid,
-    };
-  },
   formatters: {
-    level: (label) => {
-      return { level: label.toUpperCase() };
+    level: (label, number) => {
+      return { _: number };
     },
+    bindings: (bindings) => {
+      return {};
+    },  
   },
-  base: undefined,  // WHY: Removes pid and hostname from logs
   level: process.env.LOGGER_LEVEL ?? "silent",
   timestamp: pino.stdTimeFunctions.isoTime,
   transport,
