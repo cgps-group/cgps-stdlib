@@ -20,8 +20,8 @@ const logger = pino({
     level: (label) => {
       return { level: label.toUpperCase() };
     },
-    log: ({ pid, level, hostname, ...object }) => object,  // WHY: We don't need the other noise
   },
+  base: undefined,  // WHY: Removes pid and hostname from logs
   level: process.env.LOGGER_LEVEL ?? "silent",
   timestamp: pino.stdTimeFunctions.isoTime,
   transport,
