@@ -79,6 +79,17 @@ if (process.env.AUTH_LDAP) {
     "groupSearchScope": process.env.AUTH_LDAP_GROUP_SEARCH_SCOPE,
     "groupSearchAttributes": process.env.AUTH_LDAP_GROUP_SEARCH_ATTRIBUTES ? process.env.AUTH_LDAP_GROUP_SEARCH_ATTRIBUTES.split(",") : undefined,
   };
+  if (process.env.AUTH_LDAP_TLS_OPTIONS) {
+    options.ldap.tlsOptions = JSON.parse(process.env.AUTH_LDAP_TLS_OPTIONS);
+  }
+  if (process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) {
+    options.ldap.tlsOptions ??= {};
+    options.ldap.tlsOptions.cret = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+  }
+  if (process.env.AUTH_LDAP_TLS_OPTIONS_CA_PATH) {
+    options.ldap.tlsOptions ??= {};
+    options.ldap.tlsOptions.ca = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+  }
 }
 
 if (process.env.AUTH_TWITTER) {
