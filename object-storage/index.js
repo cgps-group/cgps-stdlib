@@ -33,19 +33,16 @@ async function exists(bucket, key) {
     Key: key,
   };
   const command = new HeadObjectCommand(input);
-  let result = true;
   try {
-    await client.send(command);
+    const res = await client.send(command);
+    return res.ContentLength > 20;
   }
   catch (err) {
-    if (err.message === "UnknownError") {
-      result = false;
+    if (err.name === "NotFound") {
+      return false;
     }
-    else {
-      throw err;
-    }
+    throw err;
   }
-  return result;
 }
 
 async function generateUrl(bucket, key) {
