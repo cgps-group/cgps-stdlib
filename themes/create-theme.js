@@ -1,6 +1,6 @@
 const { createTheme: createMuiTheme } = require("@mui/material/styles");
 
-module.exports = function createTheme(theme) {
+module.exports = function createTheme(theme, overrides) {
   const themeStyle = {
     "--primary-light": theme.primary.light,
     "--primary-main": theme.primary.main,
@@ -57,6 +57,7 @@ module.exports = function createTheme(theme) {
       subtitle1: { fontFamily: theme.fonts.headline },
       subtitle2: { fontFamily: theme.fonts.headline },
     },
+    ...overrides,
   });
 
   return {
