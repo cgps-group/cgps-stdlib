@@ -84,11 +84,11 @@ if (process.env.AUTH_LDAP) {
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.cret = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+    options.ldap.tlsOptions.cret = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CA_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.ca = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+    options.ldap.tlsOptions.ca = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
   }
 }
 
@@ -97,6 +97,11 @@ if (process.env.AUTH_TWITTER) {
     clientId: process.env.AUTH_TWITTER_CLIENT_ID,
     clientSecret: process.env.AUTH_TWITTER_CLIENT_SECRET,
   };
+}
+
+if (process.env.AUTH_DEMO) {
+  // TODO: Add any env specific values
+  options.demo = {};
 }
 
 module.exports = options;
