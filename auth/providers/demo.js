@@ -11,7 +11,7 @@ const generateHashId = require("../../hash/generate-hash-id.js").default;
  * @returns user
  */
 module.exports = function (options, adapter) {
-  return CredentialsProvider({
+  const provider = CredentialsProvider({
     id: options.id || "demo",
     name: options.name || 'a Demo Account',
     async authorize() {
@@ -27,4 +27,9 @@ module.exports = function (options, adapter) {
       return user
     }
   })
+
+  return {
+    ...provider,
+    id: provider.options.id
+  }
 }

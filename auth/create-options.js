@@ -312,15 +312,7 @@ function createOptions(adapter) {
     );
   }
 
-  if (serverRuntimeConfig.auth.demo) {
-    const createDemoProvider = require("./providers/demo.js");
-    options.providers.push(
-      createDemoProvider(
-        serverRuntimeConfig.auth.demo,
-        adapter,
-      )
-    );
-  }
+
 
   if (serverRuntimeConfig.auth.openidconnect) {
     const createOpenIDConnectProvider = require("./providers/openidconnect.js");
@@ -359,6 +351,16 @@ function createOptions(adapter) {
         };
       },
     });
+  }
+
+  if (serverRuntimeConfig.auth.demo) {
+    const createDemoProvider = require("./providers/demo.js");
+    options.providers.push(
+      createDemoProvider(
+        serverRuntimeConfig.auth.demo,
+        adapter,
+      )
+    );
   }
 
   return options;
