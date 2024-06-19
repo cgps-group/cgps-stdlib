@@ -100,8 +100,9 @@ if (process.env.AUTH_TWITTER) {
 }
 
 if (process.env.AUTH_DEMO) {
-  // TODO: Add any env specific values
-  options.demo = {};
+  options.demo = {
+    role: process.env.AUTH_DEMO_ROLE ?? "demo",
+  };
 }
 
 module.exports = options;
