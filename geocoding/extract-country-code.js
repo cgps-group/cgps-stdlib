@@ -31,7 +31,7 @@ function extractCountryCode(
 ) {
   const result = lookUp(latitude, longitude);
   if (result) {
-    return getCountryISO2(result["country_a3"]);
+    return result["country_a2"];
   }
 
   const point = {
