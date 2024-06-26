@@ -33,20 +33,6 @@ if (process.env.AUTH_BRYN) {
   };
 }
 
-if (process.env.AUTH_EMAIL) {
-  options.email = {
-    server: {
-      host: process.env.AUTH_EMAIL_SERVER_HOST ?? process.env.EMAIL_SERVER_HOST,
-      port: process.env.AUTH_EMAIL_SERVER_PORT ?? process.env.EMAIL_SERVER_PORT,
-      auth: {
-        user: process.env.AUTH_EMAIL_SERVER_AUTH_USER ?? process.env.EMAIL_SERVER_USER,
-        pass: process.env.AUTH_EMAIL_SERVER_AUTH_PASS ?? process.env.EMAIL_SERVER_PASSWORD,
-      },
-    },
-    from: process.env.AUTH_EMAIL_FROM ?? process.env.EMAIL_FROM,
-  };
-}
-
 if (process.env.AUTH_FACEBOOK) {
   options.facebook = {
     clientId: process.env.AUTH_FACEBOOK_CLIENT_ID,
@@ -84,11 +70,11 @@ if (process.env.AUTH_LDAP) {
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.cret = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+    options.ldap.tlsOptions.cret = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CA_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.ca = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+    options.ldap.tlsOptions.ca = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
   }
 }
 
@@ -96,6 +82,20 @@ if (process.env.AUTH_TWITTER) {
   options.twitter = {
     clientId: process.env.AUTH_TWITTER_CLIENT_ID,
     clientSecret: process.env.AUTH_TWITTER_CLIENT_SECRET,
+  };
+}
+
+if (process.env.AUTH_EMAIL) {
+  options.email = {
+    server: {
+      host: process.env.AUTH_EMAIL_SERVER_HOST ?? process.env.EMAIL_SERVER_HOST,
+      port: process.env.AUTH_EMAIL_SERVER_PORT ?? process.env.EMAIL_SERVER_PORT,
+      auth: {
+        user: process.env.AUTH_EMAIL_SERVER_AUTH_USER ?? process.env.EMAIL_SERVER_USER,
+        pass: process.env.AUTH_EMAIL_SERVER_AUTH_PASS ?? process.env.EMAIL_SERVER_PASSWORD,
+      },
+    },
+    from: process.env.AUTH_EMAIL_FROM ?? process.env.EMAIL_FROM,
   };
 }
 
