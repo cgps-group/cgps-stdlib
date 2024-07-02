@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "development") {
 const logger = pino({
   formatters: {
     level: (label, number) => {
-      return { _: number };
+      return { level: label };
     },
     bindings: (bindings) => {
       return {};
