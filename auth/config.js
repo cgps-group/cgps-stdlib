@@ -33,7 +33,7 @@ if (process.env.AUTH_BRYN) {
   };
 }
 
-if (process.env.AUTH_EMAIL) {
+if (process.env.AUTH_EMAIL || process.env.AUTH_EMAIL_OVERRIDE_SECRET) {
   options.email = {
     server: {
       host: process.env.AUTH_EMAIL_SERVER_HOST ?? process.env.EMAIL_SERVER_HOST,
@@ -84,11 +84,11 @@ if (process.env.AUTH_LDAP) {
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.cret = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+    options.ldap.tlsOptions.cret = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CA_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.ca = [ require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH) ];
+    options.ldap.tlsOptions.ca = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
   }
 }
 
