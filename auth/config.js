@@ -33,6 +33,20 @@ if (process.env.AUTH_BRYN) {
   };
 }
 
+if (process.env.AUTH_EMAIL) {
+  options.email = {
+    server: {
+      host: process.env.AUTH_EMAIL_SERVER_HOST ?? process.env.EMAIL_SERVER_HOST,
+      port: process.env.AUTH_EMAIL_SERVER_PORT ?? process.env.EMAIL_SERVER_PORT,
+      auth: {
+        user: process.env.AUTH_EMAIL_SERVER_AUTH_USER ?? process.env.EMAIL_SERVER_USER,
+        pass: process.env.AUTH_EMAIL_SERVER_AUTH_PASS ?? process.env.EMAIL_SERVER_PASSWORD,
+      },
+    },
+    from: process.env.AUTH_EMAIL_FROM ?? process.env.EMAIL_FROM,
+  };
+}
+
 if (process.env.AUTH_FACEBOOK) {
   options.facebook = {
     clientId: process.env.AUTH_FACEBOOK_CLIENT_ID,
@@ -85,17 +99,9 @@ if (process.env.AUTH_TWITTER) {
   };
 }
 
-if (process.env.AUTH_EMAIL) {
-  options.email = {
-    server: {
-      host: process.env.AUTH_EMAIL_SERVER_HOST ?? process.env.EMAIL_SERVER_HOST,
-      port: process.env.AUTH_EMAIL_SERVER_PORT ?? process.env.EMAIL_SERVER_PORT,
-      auth: {
-        user: process.env.AUTH_EMAIL_SERVER_AUTH_USER ?? process.env.EMAIL_SERVER_USER,
-        pass: process.env.AUTH_EMAIL_SERVER_AUTH_PASS ?? process.env.EMAIL_SERVER_PASSWORD,
-      },
-    },
-    from: process.env.AUTH_EMAIL_FROM ?? process.env.EMAIL_FROM,
+if (process.env.AUTH_DEMO) {
+  options.demo = {
+    role: process.env.AUTH_DEMO_ROLE ?? "demo",
   };
 }
 
