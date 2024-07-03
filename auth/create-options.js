@@ -182,12 +182,6 @@ function createOptions(adapter) {
     // debug: true, // Use this option to enable debug messages in the console
   };
 
-  if (serverRuntimeConfig.auth.email) {
-    options.providers.push(
-      EmailProvider(serverRuntimeConfig.auth.email),
-    );
-  }
-
   if (serverRuntimeConfig.auth.google) {
     options.providers.push(
       GoogleProvider(serverRuntimeConfig.auth.google)
@@ -360,6 +354,12 @@ function createOptions(adapter) {
         serverRuntimeConfig.auth.demo,
         adapter,
       )
+    );
+  }
+
+  if (serverRuntimeConfig.auth.email) {
+    options.providers.push(
+      EmailProvider(serverRuntimeConfig.auth.email),
     );
   }
 
