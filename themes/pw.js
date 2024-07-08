@@ -36,8 +36,8 @@ const theme = {
     contrast: "#fff",
   },
   fonts: {
-    headline: `"Space Grotesk", "Helvetica", "Arial", sans-serif`,
-    body: `"Work Sans", "Helvetica", "Arial", sans-serif`,
+    headline: `"Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
+    body: `"Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
   },
 };
 
