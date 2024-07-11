@@ -85,6 +85,12 @@ if (process.env.AUTH_TWITTER) {
   };
 }
 
+if (process.env.AUTH_DEMO) {
+  options.demo = {
+    role: process.env.AUTH_DEMO_ROLE ?? "demo",
+  };
+}
+
 if (process.env.AUTH_EMAIL) {
   options.email = {
     server: {

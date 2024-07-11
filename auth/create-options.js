@@ -182,8 +182,6 @@ function createOptions(adapter) {
     // debug: true, // Use this option to enable debug messages in the console
   };
 
-
-
   if (serverRuntimeConfig.auth.google) {
     options.providers.push(
       GoogleProvider(serverRuntimeConfig.auth.google)
@@ -347,6 +345,16 @@ function createOptions(adapter) {
         };
       },
     });
+  }
+
+  if (serverRuntimeConfig.auth.demo) {
+    const createDemoProvider = require("./providers/demo.js");
+    options.providers.push(
+      createDemoProvider(
+        serverRuntimeConfig.auth.demo,
+        adapter,
+      )
+    );
   }
 
   if (serverRuntimeConfig.auth.email) {
