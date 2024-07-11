@@ -102,6 +102,7 @@ if (process.env.AUTH_EMAIL || process.env.AUTH_EMAIL_OVERRIDE_SECRET) {
       },
     },
     from: process.env.AUTH_EMAIL_FROM ?? process.env.EMAIL_FROM,
+    overrideSecret: process.env.AUTH_EMAIL_OVERRIDE_SECRET,
   };
 }
 
