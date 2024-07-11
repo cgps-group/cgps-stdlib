@@ -91,7 +91,7 @@ if (process.env.AUTH_DEMO) {
   };
 }
 
-if (process.env.AUTH_EMAIL || process.env.AUTH_EMAIL_OVERRIDE_SECRET) {
+if (process.env.AUTH_EMAIL) {
   options.email = {
     server: {
       host: process.env.AUTH_EMAIL_SERVER_HOST ?? process.env.EMAIL_SERVER_HOST,
@@ -102,7 +102,6 @@ if (process.env.AUTH_EMAIL || process.env.AUTH_EMAIL_OVERRIDE_SECRET) {
       },
     },
     from: process.env.AUTH_EMAIL_FROM ?? process.env.EMAIL_FROM,
-    overrideSecret: process.env.AUTH_EMAIL_OVERRIDE_SECRET,
   };
 }
 
