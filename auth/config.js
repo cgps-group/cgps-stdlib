@@ -74,7 +74,7 @@ if (process.env.AUTH_LDAP) {
   }
   if (process.env.AUTH_LDAP_TLS_OPTIONS_CA_PATH) {
     options.ldap.tlsOptions ??= {};
-    options.ldap.tlsOptions.ca = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CRET_PATH)];
+    options.ldap.tlsOptions.ca = [require("fs").readFileSync(process.env.AUTH_LDAP_TLS_OPTIONS_CA_PATH)];
   }
 }
 
