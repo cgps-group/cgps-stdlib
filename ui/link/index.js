@@ -3,11 +3,42 @@ import PropTypes from "prop-types";
 import cc from "classcat";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
+import MuiButton from "@mui/material/Button";
 import MuiLink from "@mui/material/Link";
 import { styled } from "@mui/material/styles";
 
 // Add support for the sx prop for consistency with the other branches.
 const Anchor = styled("a")({});
+
+export const NextButtonComposed = React.forwardRef((props, ref) => {
+  const {
+    to,
+    linkAs,
+    replace,
+    scroll,
+    shallow,
+    prefetch,
+    legacyBehavior = true,
+    locale,
+    ...other
+  } = props;
+
+  return (
+    <NextLink
+      href={to}
+      prefetch={prefetch}
+      as={linkAs}
+      replace={replace}
+      scroll={scroll}
+      shallow={shallow}
+      passHref
+      legacyBehavior={legacyBehavior}
+      locale={locale}
+    >
+      <MuiButton ref={ref} {...other} />
+    </NextLink>
+  );
+});
 
 export const NextLinkComposed = React.forwardRef((props, ref) => {
   const {
@@ -111,7 +142,7 @@ const Link = React.forwardRef((props, ref) => {
 
   return (
     <MuiLink
-      component={NextLinkComposed}
+      component={other.variant === "button" ? NextButtonComposed : NextLinkComposed}
       className={className}
       ref={ref}
       underline="hover"
