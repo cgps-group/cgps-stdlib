@@ -18,16 +18,15 @@ const theme = {
     contrast: "#ffffff",
   },
   secondary: {
-    light: "#cabcd3",
-    main: "#998ca2",
-    dark: "#6b5f73",
+    light: "#3c7383",
+    main: "#3c7384",
+    dark: "#305c69",
     contrast: "#fff",
   },
   tertiary: {
-    light: "#ebb3b8",
-    main: "#b88388",
-    dark: "#87565b",
-    contrast: "#fff",
+    light: "#cabcd3",
+    main: "#998ca2",
+    dark: "#6b5f73",
   },
   neutral: {
     light: "#c4bfc4",
@@ -41,6 +40,15 @@ const theme = {
   },
   fontWeight: {
     headline: "500",
+  },
+  components: {
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: {
+          color: 'tertiary.main',
+        },
+      },
+    },
   },
 };
 

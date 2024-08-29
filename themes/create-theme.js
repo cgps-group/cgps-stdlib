@@ -22,6 +22,7 @@ module.exports = function createTheme(theme, overrides) {
 
   // Create a theme instance.
   const muiTheme = createMuiTheme({
+    ...theme,
     palette: {
       text: {
         primary: theme.text.primary,
