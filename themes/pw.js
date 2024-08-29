@@ -39,6 +39,9 @@ const theme = {
     headline: `"Saira Semi Condensed", Helvetica, Arial, sans-serif`,
     body: `Roboto, Helvetica, Arial, sans-serif`,
   },
+  fontWeight: {
+    headline: "500",
+  },
 };
 
 module.exports = theme;
