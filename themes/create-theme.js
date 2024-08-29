@@ -8,6 +8,10 @@ module.exports = function createTheme(theme, overrides) {
     "--primary-contrast": theme.primary.contrast,
     "--secondary-main": theme.secondary.main,
     "--secondary-contrast": theme.secondary.contrast,
+    "--tertiary-light": theme.tertiary.light,
+    "--tertiary-main": theme.tertiary.main,
+    "--tertiary-dark": theme.tertiary.dark,
+    "--tertiary-contrast": theme.tertiary.contrast,
     "--text-primary": theme.text.primary,
     "--text-secondary": theme.text.secondary,
     "--text-disabled": theme.text.disabled,
@@ -40,6 +44,13 @@ module.exports = function createTheme(theme, overrides) {
         main: theme.secondary.main,
         dark: theme.secondary.dark,
         contrastText: theme.secondary.contrast,
+      },
+      tertiary: {
+        light: theme.tertiary.light,
+        main: theme.tertiary.main,
+        dark: theme.tertiary.dark,
+        contrastText: theme.tertiary.contrast,
+
       },
       background: {
         paper: theme.background.main,
