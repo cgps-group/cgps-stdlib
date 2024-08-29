@@ -31,9 +31,6 @@ const theme = {
     headline: `"Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
     body: `"Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif`,
   },
-  fontWeight: {
-    headline: "initial",
-  },
 };
 
 module.exports = theme;

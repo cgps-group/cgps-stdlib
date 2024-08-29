@@ -18,15 +18,15 @@ const theme = {
     contrast: "#ffffff",
   },
   secondary: {
+    light: "#cabcd3",
+    main: "#998ca2",
+    dark: "#6b5f73",
+  },
+  tertiary: {
     light: "#3c7383",
     main: "#3c7384",
     dark: "#305c69",
     contrast: "#fff",
-  },
-  tertiary: {
-    light: "#cabcd3",
-    main: "#998ca2",
-    dark: "#6b5f73",
   },
   neutral: {
     light: "#c4bfc4",
@@ -37,18 +37,6 @@ const theme = {
   fonts: {
     headline: `"Saira Semi Condensed", Helvetica, Arial, sans-serif`,
     body: `Roboto, Helvetica, Arial, sans-serif`,
-  },
-  fontWeight: {
-    headline: "500",
-  },
-  components: {
-    MuiCircularProgress: {
-      styleOverrides: {
-        root: {
-          color: 'tertiary.main',
-        },
-      },
-    },
   },
 };
 
