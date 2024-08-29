@@ -51,35 +51,35 @@ module.exports = function createTheme(theme, overrides) {
       fontFamily: theme.fonts.body,
       h1: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial",
+        fontWeight: theme.fontWeight.headline,
       },
       h2: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial",
+        fontWeight: theme.fontWeight.headline,
       },
       h3: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial",
+        fontWeight: theme.fontWeight.headline,
       },
       h4: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial",
+        fontWeight: theme.fontWeight.headline,
       },
       h5: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial"
+        fontWeight: theme.fontWeight.headline,
       },
       h6: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial"
+        fontWeight: theme.fontWeight.headline,
       },
       subtitle1: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial"
+        fontWeight: theme.fontWeight.headline,
       },
       subtitle2: {
         fontFamily: theme.fonts.headline,
-        fontWeight: theme.fontWeight.headline || "initial"
+        fontWeight: theme.fontWeight.headline,
       },
     },
     ...overrides,
