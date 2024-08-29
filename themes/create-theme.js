@@ -50,7 +50,6 @@ module.exports = function createTheme(theme, overrides) {
         main: theme.tertiary.main,
         dark: theme.tertiary.dark,
         contrastText: theme.tertiary.contrast,
-
       },
       background: {
         paper: theme.background.main,
