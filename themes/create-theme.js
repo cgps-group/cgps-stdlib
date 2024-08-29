@@ -49,14 +49,38 @@ module.exports = function createTheme(theme, overrides) {
     },
     typography: {
       fontFamily: theme.fonts.body,
-      h1: { fontFamily: theme.fonts.headline },
-      h2: { fontFamily: theme.fonts.headline },
-      h3: { fontFamily: theme.fonts.headline },
-      h4: { fontFamily: theme.fonts.headline },
-      h5: { fontFamily: theme.fonts.headline },
-      h6: { fontFamily: theme.fonts.headline },
-      subtitle1: { fontFamily: theme.fonts.headline },
-      subtitle2: { fontFamily: theme.fonts.headline },
+      h1: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial",
+      },
+      h2: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial",
+      },
+      h3: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial",
+      },
+      h4: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial",
+      },
+      h5: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial"
+      },
+      h6: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial"
+      },
+      subtitle1: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial"
+      },
+      subtitle2: {
+        fontFamily: theme.fonts.headline,
+        fontWeight: theme.fontWeight.headline || "initial"
+      },
     },
     ...overrides,
   });
