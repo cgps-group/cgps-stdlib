@@ -4,7 +4,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 const LoadingBarStyle = {
   position: "fixed",
   width: "100%",
-  top: "48px",
+  top: "64px",
   left: 0,
   right: 0,
 };
