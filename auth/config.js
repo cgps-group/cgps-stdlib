@@ -13,7 +13,7 @@ if (process.env.AUTH_AZURE_AD) {
   options["azure-ad"] = {
     clientId: process.env.AUTH_AZURE_AD_CLIENT_ID,
     clientSecret: process.env.AUTH_AZURE_AD_CLIENT_SECRET,
-    // tenantId: process.env.AUTH_AZURE_AD_TENANT_ID,
+    tenantId: process.env.AUTH_AZURE_AD_TENANT_ID,
   };
 }
 
