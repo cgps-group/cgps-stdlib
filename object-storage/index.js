@@ -84,6 +84,7 @@ async function store(
   key,
   data,
   compress = false,
+  options = {}
 ) {
   const passThroughStream = new stream.PassThrough();
 
@@ -94,6 +95,7 @@ async function store(
       Key: key,
       Body: passThroughStream,
       ACL: config.storageACL,
+      ...options,
     },
   });
 
