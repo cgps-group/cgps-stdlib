@@ -2,6 +2,8 @@ const stream = require("node:stream");
 const util = require("node:util");
 const zlib = require("node:zlib");
 
+const gunzip = require("gunzip-maybe");
+
 const {
   S3Client,
   GetObjectCommand,
@@ -120,7 +122,7 @@ async function retrieve(bucket, key, decompress = false) {
   const response = await client.send(command);
 
   if (decompress) {
-    return response.Body.pipe(zlib.createGunzip());
+    return response.Body.pipe(gunzip());
   }
   else {
     return response.Body;
