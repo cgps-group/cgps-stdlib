@@ -67,10 +67,17 @@ async function generateSignedGetUrl(bucket, key, expiresInHours = 1) {
   );
 }
 
-async function generateSignedUploadUrl(bucket, key, expiresInHours = 1) {
+async function generateSignedUploadUrl(
+  bucket,
+  key,
+  expiresInHours = 1,
+  contentType = "application/json",
+) {
   const command = new PutObjectCommand({
     Bucket: bucket,
     Key: key,
+    ContentType: contentType,
+    ContentEncoding: "gzip"
   });
   return getSignedUrl(
     client,
