@@ -1,0 +1,6 @@
+.root {
+  height: 32px;
+  padding: 0 8px 0 8px;
+  border-radius: 8px;
+  min-width: 48px;
+}
