@@ -1,9 +1,5 @@
 import { ApiError } from "next/dist/server/api-utils";
 
-import { getServerSession } from "next-auth/next";
-
-import authOptions from "../auth/create-options.js";
-
 async function getUserFromAccessToken(req, res, adapter) {
   const accessToken = req?.headers?.["access-token"] ?? req?.query?.["access-token"];
 
@@ -35,21 +31,4 @@ async function getUserFromAccessToken(req, res, adapter) {
   return undefined;
 }
 
-async function getUserMiddleware(req, res) {
-  const session = await getServerSession(req, res, authOptions);
-
-  if (session && session.user) {
-    const userDoc = await adapter.getUser(session.user.id);
-    return userDoc;
-  }
-
-  const accessTokenUser = await getUserFromAccessToken(req, res);
-
-  if (accessTokenUser) {
-    return accessTokenUser;
-  }
-
-  return undefined;
-}
-
-export default getUserMiddleware;
+export default getUserFromAccessToken;
