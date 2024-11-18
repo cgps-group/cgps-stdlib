@@ -1,6 +1,58 @@
 .root {
   height: 32px;
-  padding: 0 8px 0 8px;
+  padding: 0 0 0 8px;
   border-radius: 8px;
   min-width: 48px;
+  font-size: 14px;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.root :global .MuiChip-label {
+  padding: 0 8px;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.root:hover {
+  background-color: var(--primary-light);
+  box-shadow: 0 1px 2px 0 rgba(60,115,131,.3),0 1px 3px 1px rgba(60,115,131,.15);
+}
+
+.delete-button {
+  border: none;
+  background: inherit;
+  height: 100%;
+  width: 32px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.delete-button::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary-main);
+  border-radius: 8px;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+}
+
+.delete-button:hover::before {
+  opacity: 0.1;
+}
+
+
+.delete-button svg {
+  /* background: red; */
+  color: var(--primary-dark);
+  font-size: 20px;
+  z-index: 1;
 }
