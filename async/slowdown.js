@@ -2,7 +2,7 @@ const sleep = require("./sleep.js");
 
 async function slowdown(
   promise,
-  durationInSeconds,
+  durationInSeconds = 1,
 ) {
   return (
     Promise.all([
