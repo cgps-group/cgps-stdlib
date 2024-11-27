@@ -67,10 +67,16 @@ async function generateSignedGetUrl(bucket, key, expiresInHours = 1) {
   );
 }
 
-async function generateSignedUploadUrl(bucket, key, expiresInHours = 1) {
+async function generateSignedUploadUrl(
+  bucket,
+  key,
+  expiresInHours = 1,
+  metadata,
+) {
   const command = new PutObjectCommand({
     Bucket: bucket,
     Key: key,
+    Metadata: metadata,
   });
   return getSignedUrl(
     client,
@@ -116,6 +122,35 @@ async function store(
   return uploadsRequest.done();
 }
 
+async function getMetadata(bucket, key) {
+  try {
+    const command = new HeadObjectCommand({
+      Bucket: bucket,
+      Key: key,
+    });
+    const response = await client.send(command);
+    return response.Metadata;
+  }
+  catch (err) {
+    if (err.name === "NotFound") {
+      return false;
+    }
+    throw err;
+  }
+}
+
+async function setMetadata(bucket, key, metadata) {
+  const command = new CopyObjectCommand({
+    Bucket: bucket,
+    CopySource: `/${bucket}/${key}`,
+    Key: key,
+    MetadataDirective: "REPLACE",
+    ...metadata,
+  });
+
+  return client.send(command);
+}
+
 async function retrieve(bucket, key, decompress = false) {
   const command = new GetObjectCommand({
     Bucket: bucket,
@@ -151,7 +186,9 @@ module.exports = {
   generateSignedGetUrl,
   generateSignedUploadUrl,
   generateUrl,
+  getMetadata,
+  setMetadata,
+  move,
   retrieve,
   store,
-  move,
 };
