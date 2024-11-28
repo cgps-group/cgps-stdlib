@@ -181,6 +181,40 @@ async function move(bucket, sourceKey, targetKey) {
   await client.send(deleteCommand);
 }
 
+async function listObjects(bucket, prefix = "") {
+  const allObjects = [];
+  let continuationToken; 
+
+  try {
+    do {
+      const params = {
+        Bucket: bucket,
+        ContinuationToken: continuationToken, 
+      };
+  
+      const data = await client.send(new ListObjectsV2Command(params));
+      const keys = (data.Contents || []).map(object => object.Key);
+      allObjects.push(...keys);
+  
+      continuationToken = data.NextContinuationToken;
+    } 
+    while (continuationToken); 
+    return allObjects;
+
+  } catch (error) {
+    console.error("Error fetching objects:", error);
+  }
+}
+async function deleteObject(bucket, key) {
+  
+  const deleteCommand = new DeleteObjectCommand({
+    Bucket: bucket,
+    Key: key,
+  });
+
+  await client.send(deleteCommand);
+}
+
 module.exports = {
   exists,
   generateSignedGetUrl,
@@ -191,4 +225,6 @@ module.exports = {
   move,
   retrieve,
   store,
+  deleteObject,
+  listObjects,
 };
