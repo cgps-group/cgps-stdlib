@@ -206,8 +206,8 @@ async function listObjects(bucket, prefix = "") {
     console.error("Error fetching objects:", error);
   }
 }
-async function deleteObject(bucket, key) {
 
+async function deleteObject(bucket, key) {
   const deleteCommand = new DeleteObjectCommand({
     Bucket: bucket,
     Key: key,
@@ -215,6 +215,7 @@ async function deleteObject(bucket, key) {
 
   await client.send(deleteCommand);
 }
+
 async function copyObject(bucket, sourceKey, targetKey, options = {}) {
   const copyCommand = new CopyObjectCommand({
     Bucket: bucket,
@@ -224,6 +225,7 @@ async function copyObject(bucket, sourceKey, targetKey, options = {}) {
   });
   await client.send(copyCommand);
 }
+
 module.exports = {
   exists,
   generateSignedGetUrl,
