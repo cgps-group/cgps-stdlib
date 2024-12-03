@@ -28,6 +28,12 @@ const client = new S3Client({
   },
   endpoint: config.storageEndpoint,
   forcePathStyle: config.storageForcePathStyle,
+
+  maxAttempts: 3,
+  httpOptions: {
+    keepAlive: true,
+    timeout: 30000,
+  },
 });
 
 async function exists(bucket, key) {
