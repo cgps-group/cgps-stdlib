@@ -123,6 +123,15 @@ async function store(
   return uploadsRequest.done();
 }
 
+async function head(bucket, key) {
+  const command = new HeadObjectCommand({
+    Bucket: bucket,
+    Key: key,
+  });
+  const response = await client.send(command);
+  return response;
+}
+
 async function getMetadata(bucket, key) {
   try {
     const command = new HeadObjectCommand({
@@ -239,4 +248,5 @@ module.exports = {
   deleteObject,
   copyObject,
   listObjects,
+  head,
 };
