@@ -105,4 +105,10 @@ if (process.env.AUTH_EMAIL) {
   };
 }
 
+if (process.env.AUTH_LOCAL) {
+  options.local = {
+    username: process.env.AUTH_LOCAL_USERNAME,
+  };
+}
+
 module.exports = options;

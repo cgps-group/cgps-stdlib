@@ -306,8 +306,6 @@ function createOptions(adapter) {
     );
   }
 
-
-
   if (serverRuntimeConfig.auth.openidconnect) {
     const createOpenIDConnectProvider = require("./providers/openidconnect.js");
     options.providers.push(
@@ -360,6 +358,16 @@ function createOptions(adapter) {
   if (serverRuntimeConfig.auth.email) {
     options.providers.push(
       EmailProvider(serverRuntimeConfig.auth.email),
+    );
+  }
+
+  if (serverRuntimeConfig.auth.local) {
+    const createLocalProvider = require("./providers/local.js");
+    options.providers.push(
+      createLocalProvider(
+        serverRuntimeConfig.auth.local,
+        adapter,
+      )
     );
   }
 
