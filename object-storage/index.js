@@ -184,22 +184,22 @@ async function move(bucket, sourceKey, targetKey) {
 
 async function listObjects(bucket, prefix = "") {
   const allObjects = [];
-  let continuationToken; 
+  let continuationToken;
 
   try {
     do {
       const params = {
         Bucket: bucket,
-        ContinuationToken: continuationToken, 
+        ContinuationToken: continuationToken,
       };
-  
+
       const data = await client.send(new ListObjectsV2Command(params));
       const keys = (data.Contents || []).map(object => object.Key);
       allObjects.push(...keys);
-  
+
       continuationToken = data.NextContinuationToken;
-    } 
-    while (continuationToken); 
+    }
+    while (continuationToken);
     return allObjects;
 
   } catch (error) {
@@ -207,7 +207,7 @@ async function listObjects(bucket, prefix = "") {
   }
 }
 async function deleteObject(bucket, key) {
-  
+
   const deleteCommand = new DeleteObjectCommand({
     Bucket: bucket,
     Key: key,
@@ -215,7 +215,15 @@ async function deleteObject(bucket, key) {
 
   await client.send(deleteCommand);
 }
-
+async function copyObject(bucket, sourceKey, targetKey, options = {}) {
+  const copyCommand = new CopyObjectCommand({
+    Bucket: bucket,
+    CopySource: `/${bucket}/${sourceKey}`,
+    Key: targetKey,
+    ...options,
+  });
+  await client.send(copyCommand);
+}
 module.exports = {
   exists,
   generateSignedGetUrl,
@@ -227,5 +235,6 @@ module.exports = {
   retrieve,
   store,
   deleteObject,
+  copyObject,
   listObjects,
 };
