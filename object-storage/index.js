@@ -46,6 +46,29 @@ async function exists(bucket, key) {
     throw err;
   }
 }
+/**
+ * Used to check that the object being streamed isn't "empty"
+ */
+class ByteCountStream extends stream.Transform {
+  constructor(minSize, ...args) {
+    super(...args);
+    this.minSize = minSize;
+    this.bytesWritten = 0;
+  }
+
+  _transform(chunk, _encoding, callback) {
+    this.bytesWritten += chunk.length;
+    callback(null, chunk);
+  }
+
+  _flush(callback) {
+    if (this.bytesWritten < this.minSize) {
+      callback(new Error(`Data size too small: ${this.bytesWritten} bytes, required minimum: ${this.minSize} bytes.`));
+    } else {
+      callback();
+    }
+  }
+}
 
 async function generateUrl(bucket, key) {
   const url = new URL(
@@ -90,9 +113,11 @@ async function store(
   key,
   data,
   compress = false,
-  options = {}
+  options = {},
+  minSize = 20
 ) {
   const passThroughStream = new stream.PassThrough();
+  const byteCountStream = new ByteCountStream(minSize);
 
   const uploadsRequest = new Upload({
     client,
@@ -109,12 +134,14 @@ async function store(
     pipeline(
       data,
       zlib.createGzip(),
+      byteCountStream,
       passThroughStream
     );
   }
   else {
     pipeline(
       data,
+      byteCountStream,
       passThroughStream
     );
   }
