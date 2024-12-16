@@ -1,12 +1,16 @@
 import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
+import cc from "classcat";
 
 import styles from "./index.module.css";
 
 function LoadingBar() {
   return (
     <LinearProgress
-      className={styles.root}
+      className={cc([
+        styles.root,
+        "cgps-ui-loading-bar",
+      ])}
       color="primary"
       variant="indeterminate"
     />
