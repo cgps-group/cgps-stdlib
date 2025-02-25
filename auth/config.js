@@ -111,4 +111,20 @@ if (process.env.AUTH_LOCAL) {
   };
 }
 
+if (process.env.AUTH_OIDC) {
+  options.ldap = {
+    "name": process.env.AUTH_OIDC_NAME,
+    "callbackURL": process.env.AUTH_OIDC_CALLBACK_URL,
+    "issuer": process.env.AUTH_OIDC_ISSUER,
+    "authorizationURL": process.env.AUTH_OIDC_AUTHORIZATION_URL,
+    "tokenURL": process.env.AUTH_OIDC_TOKEN_URL,
+    "userInfoURL": process.env.AUTH_OIDC_USER_INFO_URL,
+    "clientID": process.env.AUTH_OIDC_CLIENT_ID,
+    "clientSecret": process.env.AUTH_OIDC_CLIENT_SECRET,
+    "scope": process.env.AUTH_OIDC_SCOPE,
+    "checks": (process.env.AUTH_OIDC_CHECKS ?? "").split(","),
+    "idAttribute": process.env.AUTH_OIDC_ID_ATTRIBUTE,
+  };
+}
+
 module.exports = options;
