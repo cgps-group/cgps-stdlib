@@ -13,8 +13,16 @@ async function renderEmailMessage(templateName, data) {
     },
   });
 
+  const brandColor = "#548391"; // "#346df1"
+
   const globalData = {
     baseUrl: publicRuntimeConfig.baseUrl,
+    colorBackground: "#f9f9f9",
+    colorMainBackground: "#fff",
+    colorText: "#444",
+    colorButtonBackground: brandColor,
+    colorButtonText: "#fff",
+    colorButtonBorder: brandColor,
   };
 
   const rendered = await email.renderAll(
