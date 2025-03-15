@@ -1,22 +1,35 @@
 .root {
   height: 32px;
-  padding: 0 0 0 8px;
+  padding: 0;
   border-radius: 8px;
   min-width: 48px;
   font-size: 14px;
-  background-color: var(--primary-light);
   color: var(--primary-dark);
 }
 
-.root :global .MuiChip-label {
-  padding: 0 8px;
-  font-size: inherit;
-  font-weight: 500;
+.root:global(.MuiChip-filled) {
+  background-color: #e4eef1;
 }
 
-.root:hover {
-  background-color: var(--primary-light);
+.root:global(.MuiChip-filled):hover {
+  background-color: #D2E1E5;
   box-shadow: 0 1px 2px 0 rgba(60,115,131,.3),0 1px 3px 1px rgba(60,115,131,.15);
+}
+
+.root :global .MuiChip-label {
+  padding: 0 7px 0 11px;
+  font-size: inherit;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.root :global(.MuiChip-label) + .delete-button {
+  margin-left: -6px;
+}
+
+.down-down-icon {
+  margin-left: 0px;
 }
 
 .delete-button {
@@ -48,7 +61,6 @@
 .delete-button:hover::before {
   opacity: 0.1;
 }
-
 
 .delete-button svg {
   /* background: red; */

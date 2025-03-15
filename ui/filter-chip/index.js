@@ -18,15 +18,33 @@ function DeleteIcon(props) {
 }
 
 const FilterChip = React.forwardRef((props, ref) => {
+  const content = (
+    props.active
+      ?
+      (
+      <React.Fragment>
+        { props.showLabelWhenActive && props.label }
+        { props.showLabelWhenActive && (<React.Fragment>&nbsp;</React.Fragment>) }
+        { props.children }
+      </React.Fragment>
+      )
+      :
+      (
+      <React.Fragment>
+        { props.label }
+        { props.onClick && (<ArrowDropDownIcon className={styles["down-down-icon"]} />) }
+      </React.Fragment>
+      )
+  );
   return (
     <Chip
       ref={ref}
       className={styles.root}
-      label={props.children}
-      variant="filled"
+      label={content}
+      variant={props.active ? "filled" : "outlined"}
       onClick={props.onClick}
-      onDelete={props.onDelete}
-      deleteIcon={<DeleteIcon />}
+      onDelete={props.active ? props.onReset : undefined}
+      deleteIcon={props.active ? (<DeleteIcon />) : undefined}
     >
     </Chip>
   );
@@ -35,7 +53,12 @@ const FilterChip = React.forwardRef((props, ref) => {
 FilterChip.displayName = "FilterChip";
 
 FilterChip.propTypes = {
+  showLabelWhenActive: PropTypes.bool.isRequired,
+  active: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
+  label: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  onReset: PropTypes.func,
 };
 
 export default FilterChip;
