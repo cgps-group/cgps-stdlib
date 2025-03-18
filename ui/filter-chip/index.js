@@ -41,6 +41,7 @@ const FilterChip = React.forwardRef((props, ref) => {
       ref={ref}
       className={styles.root}
       label={content}
+      title={props.label}
       variant={props.active ? "filled" : "outlined"}
       onClick={props.onClick}
       onDelete={props.active ? props.onReset : undefined}
