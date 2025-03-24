@@ -54,10 +54,10 @@ const FilterChip = React.forwardRef((props, ref) => {
 FilterChip.displayName = "FilterChip";
 
 FilterChip.propTypes = {
-  showLabelWhenActive: PropTypes.bool.isRequired,
-  active: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
-  label: PropTypes.node.isRequired,
+  showLabelWhenActive: PropTypes.bool,
+  active: PropTypes.bool,
+  children: PropTypes.node,
+  label: PropTypes.node,
   onClick: PropTypes.func,
   onReset: PropTypes.func,
 };
