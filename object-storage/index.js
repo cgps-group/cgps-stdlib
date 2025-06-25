@@ -191,7 +191,10 @@ async function move(bucket, sourceKey, targetKey) {
   await client.send(deleteCommand);
 }
 
-async function listObjects(bucket, prefix = "") {
+async function listObjects(
+  bucket,
+  prefix,
+) {
   const allObjects = [];
   let continuationToken;
 
@@ -201,6 +204,7 @@ async function listObjects(bucket, prefix = "") {
         Bucket: bucket,
         Prefix: prefix,
         ContinuationToken: continuationToken,
+        Prefix: prefix,
       };
 
       const data = await client.send(new ListObjectsV2Command(params));
@@ -212,7 +216,8 @@ async function listObjects(bucket, prefix = "") {
     while (continuationToken);
     return allObjects;
 
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error fetching objects:", error);
   }
 }
