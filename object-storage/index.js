@@ -202,7 +202,6 @@ async function listObjects(
     do {
       const params = {
         Bucket: bucket,
-        Prefix: prefix,
         ContinuationToken: continuationToken,
         Prefix: prefix,
       };
