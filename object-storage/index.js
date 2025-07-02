@@ -207,8 +207,10 @@ async function* listObjects(
     const data = await client.send(new ListObjectsV2Command(params));
     const keys = [];
 
-    for (const item of data.Contents) {
-      keys.push(item.Key);
+    if (data.Contents) {
+      for (const item of data.Contents) {
+        keys.push(item.Key);
+      }
     }
 
     yield keys;
