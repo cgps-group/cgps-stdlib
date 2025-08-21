@@ -209,7 +209,12 @@ async function* listObjects(
 
     if (data.Contents) {
       for (const item of data.Contents) {
-        keys.push(item.Key);
+        if (item.Size > 20) {
+          keys.push(item.Key);
+        }
+        else {
+          console.log("Skipping empty object:", item.Key);
+        }
       }
     }
 
