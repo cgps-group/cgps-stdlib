@@ -86,6 +86,33 @@ async function generateSignedUploadUrl(
   );
 }
 
+async function generateSignedUploadFastaUrl(
+  bucket,
+  key,
+  expiresInHours = 1,
+  metadata,
+) {
+  const client = new S3Client({
+    region: config.storageRegion,
+    credentials: {
+      accessKeyId: config.storageKey,
+      secretAccessKey: config.storageSecret,
+    },
+    endpoint: "http://localhost:9100",
+    forcePathStyle: config.storageForcePathStyle,
+  });
+  const command = new PutObjectCommand({
+    Bucket: bucket,
+    Key: key,
+    Metadata: metadata,
+  });
+  return getSignedUrl(
+    client,
+    command,
+    { expiresIn: expiresInHours * 3600 },
+  );
+}
+
 async function store(
   bucket,
   key,
@@ -248,6 +275,7 @@ module.exports = {
   exists,
   generateSignedGetUrl,
   generateSignedUploadUrl,
+  generateSignedUploadFastaUrl,
   generateUrl,
   getMetadata,
   setMetadata,
