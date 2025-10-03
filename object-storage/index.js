@@ -240,7 +240,7 @@ async function* listObjects(
           keys.push(item.Key);
         }
         else {
-          console.log("Skipping empty object:", item.Key);
+          console.debug("Skipping empty object:", item.Key);
         }
       }
     }
