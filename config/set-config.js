@@ -1,5 +1,8 @@
-const { setConfig } = require("next/config");
+import { setConfig as setNextConfig } from "next/config";
 
-module.exports = function (serverRuntimeConfig) {
-  setConfig({ serverRuntimeConfig });
-};
+function setConfig(serverRuntimeConfig) {
+  setNextConfig({ serverRuntimeConfig });
+}
+
+export default setConfig;
+
