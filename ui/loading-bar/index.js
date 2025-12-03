@@ -4,7 +4,7 @@ import cc from "classcat";
 
 import styles from "./index.module.css";
 
-function LoadingBar() {
+function UiLoadingBar() {
   return (
     <LinearProgress
       className={cc([
@@ -17,4 +17,4 @@ function LoadingBar() {
   );
 }
 
-export default LoadingBar;
+export default UiLoadingBar;
