@@ -37,7 +37,7 @@ const theme = {
   },
   fonts: {
     headline: `"Saira Semi Condensed", Helvetica, Arial, sans-serif`,
-    body: `Roboto, Helvetica, Arial, sans-serif`,
+    body: "'Geist Variable', Helvetica, Arial, sans-serif",
   },
 };
 
