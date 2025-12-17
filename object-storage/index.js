@@ -270,6 +270,17 @@ async function copyObject(bucket, sourceKey, targetKey, options = {}) {
   });
   await client.send(copyCommand);
 }
+export default async function getObjectSizeInBytes(
+  bucket,
+  key,
+) {
+  const result = await head(
+    bucket,
+    key,
+  );
+  const contentLength = result["ContentLength"];
+  return contentLength;
+}
 
 module.exports = {
   exists,
