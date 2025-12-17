@@ -270,7 +270,8 @@ async function copyObject(bucket, sourceKey, targetKey, options = {}) {
   });
   await client.send(copyCommand);
 }
-export default async function getObjectSizeInBytes(
+
+export async function getObjectSizeInBytes(
   bucket,
   key,
 ) {
@@ -297,4 +298,5 @@ module.exports = {
   copyObject,
   listObjects,
   head,
+  getObjectSizeInBytes
 };
