@@ -336,10 +336,10 @@ function createOptions(adapter) {
           "profile to user",
         );
         return {
-          "id": profile["sub"],
-          "name": profile["name"],
           "email": profile["email"],
           "groups": profile["groups"],
+          "id": profile["sub"],
+          "name": profile["name"],
         };
       },
     });
