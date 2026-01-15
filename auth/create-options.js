@@ -336,7 +336,7 @@ function createOptions(adapter) {
           "profile to user",
         );
         return {
-          "email": profile["email"],
+          "email": `${profile["email"]} (bryn.climb.ac.uk)`,
           "groups": profile["groups"],
           "id": profile["sub"],
           "name": profile["name"],
