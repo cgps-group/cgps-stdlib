@@ -32,7 +32,7 @@ const FilterChip = React.forwardRef((props, ref) => {
       (
       <React.Fragment>
         { props.label }
-        { props.onClick && (<ArrowDropDownIcon className={styles["down-down-icon"]} />) }
+        { props.onClick && (<ArrowDropDownIcon className={styles["arrow-down-icon"]} />) }
       </React.Fragment>
       )
   );
