@@ -4,7 +4,7 @@
   border-radius: 8px;
   min-width: 48px;
   font-size: 14px;
-  color: var(--primary-dark);
+  /* color: var(--primary-dark); */
 }
 
 .root:global(.MuiChip-filled) {
