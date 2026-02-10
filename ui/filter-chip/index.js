@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Chip from "@mui/material/Chip";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ClearIcon from "@mui/icons-material/Clear";
+import cc from "classcat";
 
 import styles from "./index.module.css";
 
@@ -39,7 +40,7 @@ const FilterChip = React.forwardRef((props, ref) => {
   return (
     <Chip
       ref={ref}
-      className={styles.root}
+      className={cc([ styles.root, props.className ])}
       label={content}
       title={props.label}
       variant={props.active ? "filled" : "outlined"}
