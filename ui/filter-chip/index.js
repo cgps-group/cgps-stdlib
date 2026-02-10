@@ -37,6 +37,7 @@ const FilterChip = React.forwardRef((props, ref) => {
       </React.Fragment>
       )
   );
+
   return (
     <Chip
       ref={ref}
