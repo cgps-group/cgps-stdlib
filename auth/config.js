@@ -112,7 +112,7 @@ if (process.env.AUTH_LOCAL) {
 }
 
 if (process.env.AUTH_OIDC) {
-  options.ldap = {
+  options.openidconnect = {
     "name": process.env.AUTH_OIDC_NAME,
     "callbackURL": process.env.AUTH_OIDC_CALLBACK_URL,
     "issuer": process.env.AUTH_OIDC_ISSUER,
