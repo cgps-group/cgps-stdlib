@@ -4,6 +4,7 @@ module.exports = function (options) {
   return {
     ...options,
     id: "openidconnect",
+    type: "oauth",
     profile(profile) {
       logger.debug(
         { profile },
