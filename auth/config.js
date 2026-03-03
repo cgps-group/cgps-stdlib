@@ -119,7 +119,7 @@ if (process.env.AUTH_OIDC) {
     "authorizationURL": process.env.AUTH_OIDC_AUTHORIZATION_URL,
     "tokenURL": process.env.AUTH_OIDC_TOKEN_URL,
     "userInfoURL": process.env.AUTH_OIDC_USER_INFO_URL,
-    "clientID": process.env.AUTH_OIDC_CLIENT_ID,
+    "clientId": process.env.AUTH_OIDC_CLIENT_ID,
     "clientSecret": process.env.AUTH_OIDC_CLIENT_SECRET,
     "scope": process.env.AUTH_OIDC_SCOPE,
     "checks": (process.env.AUTH_OIDC_CHECKS ?? "").split(","),
