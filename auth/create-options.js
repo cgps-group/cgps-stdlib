@@ -33,6 +33,8 @@ function createOptions(adapter) {
       },
     },
 
+    pages: {},
+
     // @link https://next-auth.js.org/configuration/providers
     providers: [],
 
@@ -361,14 +363,15 @@ function createOptions(adapter) {
     );
   }
 
-  if (serverRuntimeConfig.auth.local) {
+  if (serverRuntimeConfig.auth.desktop) {
     const createLocalProvider = require("./providers/local.js");
     options.providers.push(
       createLocalProvider(
-        serverRuntimeConfig.auth.local,
+        serverRuntimeConfig.auth.desktop,
         adapter,
       )
     );
+    options.pages.signIn = '/desktop';
   }
 
   return options;

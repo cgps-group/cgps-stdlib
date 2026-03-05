@@ -105,9 +105,9 @@ if (process.env.AUTH_EMAIL) {
   };
 }
 
-if (process.env.AUTH_LOCAL) {
-  options.local = {
-    username: process.env.AUTH_LOCAL_USERNAME,
+if (process.env.AUTH_DESKTOP) {
+  options.desktop = {
+    username: process.env.AUTH_DESKTOP_USERNAME,
   };
 }
 

@@ -22,9 +22,9 @@ module.exports = function (options, adapter) {
   const provider = CredentialsProvider({
     id: "local",
     name: "Local Account",
-    async authorize(credentials, req) {
-      const username = getUsername();
-      const email = `${username}@pathogenwatch.local`;
+    async authorize() {
+      const username = getUsername() || options.username || "User";
+      const email = `${username.toLowerCase()}@pathogenwatch.local`;
     
       let user = await adapter.getUserByEmail(email);
       if (!user) {
