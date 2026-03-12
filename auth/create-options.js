@@ -89,9 +89,15 @@ function createOptions(adapter) {
         if (serverRuntimeConfig.auth.allowedUsers && !serverRuntimeConfig.auth.allowedUsers.includes(user.email)) {
           return false;
         }
-        if (account.provider === "openidconnect" && Array.isArray(serverRuntimeConfig.auth.openidconnect.checks)) {
-          const ckecks = serverRuntimeConfig.auth.openidconnect.checks;
-          const passed = ckecks.every((x) => boolean(profile[x]));
+        if (account.provider === "openidconnect" && serverRuntimeConfig.auth.openidconnect.checks) {
+          const checks = serverRuntimeConfig.auth.openidconnect.checks.split(",");
+          const passed = checks.every((x) => boolean(profile[x]));
+          if (!passed) {
+            logger.debug(
+              { profile, checks, passed: checks.map((x) => `${x} ${boolean(profile[x])}`) },
+              "openidconnect checks failed",
+            );
+          }
           return passed;
         }
         return true;

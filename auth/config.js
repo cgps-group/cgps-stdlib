@@ -114,16 +114,21 @@ if (process.env.AUTH_DESKTOP) {
 if (process.env.AUTH_OIDC) {
   options.openidconnect = {
     "name": process.env.AUTH_OIDC_NAME,
+
+    "wellKnown": process.env.AUTH_OIDC_WELLKNOWN,
+    "scope": process.env.AUTH_OIDC_SCOPE,
+    "clientId": process.env.AUTH_OIDC_CLIENT_ID,
+    "clientSecret": process.env.AUTH_OIDC_CLIENT_SECRET,
+    "checks": process.env.AUTH_OIDC_CHECKS,
+    "idToken": process.env.AUTH_OIDC_ID_TOKEN,
+    "idAttribute": process.env.AUTH_OIDC_ID_ATTRIBUTE,
+    "token_endpoint_auth_method": process.env.AUTH_OIDC_TOKEN_ENDPOINT_AUTH_METHOD,
+
     "callbackURL": process.env.AUTH_OIDC_CALLBACK_URL,
     "issuer": process.env.AUTH_OIDC_ISSUER,
     "authorizationURL": process.env.AUTH_OIDC_AUTHORIZATION_URL,
     "tokenURL": process.env.AUTH_OIDC_TOKEN_URL,
     "userInfoURL": process.env.AUTH_OIDC_USER_INFO_URL,
-    "clientId": process.env.AUTH_OIDC_CLIENT_ID,
-    "clientSecret": process.env.AUTH_OIDC_CLIENT_SECRET,
-    "scope": process.env.AUTH_OIDC_SCOPE,
-    "checks": (process.env.AUTH_OIDC_CHECKS ?? "").split(","),
-    "idAttribute": process.env.AUTH_OIDC_ID_ATTRIBUTE,
   };
 }
 
