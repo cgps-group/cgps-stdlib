@@ -86,6 +86,9 @@ function createOptions(adapter) {
           { user, account, profile, email },
           "signin",
         );
+        if (user && user.email && !user.name && account?.provider === "email") {
+          user.name = user.email;
+        }
         if (serverRuntimeConfig.auth.allowedUsers && !serverRuntimeConfig.auth.allowedUsers.includes(user.email)) {
           return false;
         }
