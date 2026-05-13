@@ -23,8 +23,8 @@ module.exports = function (options, adapter) {
     id: "local",
     name: "Local Account",
     async authorize() {
-      const username = getUsername() || options.username || "User";
-      const email = `${username.toLowerCase()}@pathogenwatch.local`;
+      const username = getUsername() || options.username || "user";
+      const email = "user@pathogenwatch.local";
     
       let user = await adapter.getUserByEmail(email);
       if (!user) {
