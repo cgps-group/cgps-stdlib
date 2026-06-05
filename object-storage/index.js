@@ -1,10 +1,10 @@
-const stream = require("node:stream");
-const util = require("node:util");
-const zlib = require("node:zlib");
+import * as stream from "node:stream";
+import * as util from "node:util";
+import * as zlib from "node:zlib";
 
-const gunzip = require("gunzip-maybe");
+import gunzipMaybe from "gunzip-maybe";
 
-const {
+import {
   S3Client,
   GetObjectCommand,
   HeadObjectCommand,
@@ -12,15 +12,30 @@ const {
   CopyObjectCommand,
   DeleteObjectCommand,
   ListObjectsV2Command,
-} = require("@aws-sdk/client-s3");
-const { Upload } = require("@aws-sdk/lib-storage");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+} from "@aws-sdk/client-s3";
 
-const config = require("../config/server-runtime-config.js").default;
+import { Upload } from "@aws-sdk/lib-storage";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+import AWS from "aws-sdk";
+
+import config from "../config/server-runtime-config.js";
 
 const pipeline = util.promisify(stream.pipeline);
+const gzip = util.promisify(zlib.gzip);
+const gunzipBuffer = util.promisify(zlib.gunzip);
 
 const client = new S3Client({
+  region: config.storageRegion,
+  credentials: {
+    accessKeyId: config.storageKey,
+    secretAccessKey: config.storageSecret,
+  },
+  endpoint: config.storageEndpoint,
+  forcePathStyle: config.storageForcePathStyle,
+});
+
+const s3 = new AWS.S3({
   region: config.storageRegion,
   credentials: {
     accessKeyId: config.storageKey,
@@ -196,7 +211,7 @@ async function retrieve(bucket, key, decompress = false) {
   const response = await client.send(command);
 
   if (decompress) {
-    return response.Body.pipe(gunzip());
+    return response.Body.pipe(gunzipMaybe());
   }
   else {
     return response.Body;
@@ -283,7 +298,108 @@ async function getObjectSizeInBytes(
   return contentLength;
 }
 
-module.exports = {
+async function getGzippedJsonFromS3(bucket, key) {
+  const params = { Bucket: bucket, Key: key };
+  let s3Object;
+  try {
+    s3Object = await s3.getObject(params).promise();
+  }
+  catch (err) {
+    if (err.code === "NoSuchKey" || err.code === "NotFound") {
+      // Object does not exist
+      return null;
+    }
+    throw err;
+  }
+
+  // Gunzip the object data
+  const unzippedBuffer = await gunzipBuffer(s3Object.Body);
+
+
+  // Parse and return the JSON
+  const jsonStr = unzippedBuffer.toString("utf8");
+
+  if (!jsonStr) {
+    console.warn(`Empty JSON retrieved from S3 for bucket ${bucket} and key ${key}`);
+    return undefined;
+  }
+  const json = JSON.parse(jsonStr);
+
+  return json;
+}
+
+async function getGzippedObjectFromS3(bucket, key) {
+  const params = { Bucket: bucket, Key: key };
+  let s3Object;
+
+  try {
+    s3Object = await s3.getObject(params).promise();
+  }
+  catch (err) {
+    if (err.code === "NoSuchKey" || err.code === "NotFound") {
+      return undefined;
+    }
+    throw err;
+  }
+
+  const unzippedBuffer = await gunzipBuffer(s3Object.Body);
+
+  if (!unzippedBuffer || unzippedBuffer.length === 0) {
+    console.warn(`Empty object retrieved from S3 for bucket ${bucket} and key ${key}`);
+    return undefined;
+  }
+
+  // Otherwise, return raw buffer
+  return unzippedBuffer;
+}
+
+async function uploadGzippedJsonToS3(bucket, key, jsonObject) {
+
+  const dataToUpload = jsonObject.results
+    ? jsonObject.results
+    : jsonObject;
+
+  const jsonStr = JSON.stringify(dataToUpload);
+
+  const gzipped = await gzip(jsonStr);
+
+  const params = {
+    Bucket: bucket,
+    Key: key,
+    Body: gzipped,
+    ContentType: "application/json",
+    ContentEncoding: "gzip",
+  };
+
+  return new Promise((resolve, reject) => {
+    s3.putObject(params, (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    });
+  });
+}
+
+async function uploadGzippedObjectToS3(bucket, key, data) {
+
+  const body = await gzip(data);
+
+  const params = {
+    Bucket: bucket,
+    Key: key,
+    Body: body,
+    ContentType: "application/text",
+    ContentEncoding: "gzip",
+  };
+
+  return new Promise((resolve, reject) => {
+    s3.putObject(params, (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+export default {
   copyObject,
   deleteObject,
   exists,
@@ -299,4 +415,8 @@ module.exports = {
   retrieve,
   setMetadata,
   store,
+  getGzippedJsonFromS3,
+  getGzippedObjectFromS3,
+  uploadGzippedJsonToS3,
+  uploadGzippedObjectToS3,
 };
