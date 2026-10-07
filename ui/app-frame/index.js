@@ -33,24 +33,30 @@ function WindowBase(props) {
               <source srcSet={props.logoWhite} media="(prefers-color-scheme: dark)" />
               <img src={props.logoRgb} alt="" />
             </picture>
-            <span className={styles["brand-name"]}>CGPS Desktop</span>
+            <span className={styles["brand-name"]}>{ props.brandName ?? "CGPS Desktop App" }</span>
           </div>
 
-          <label className={styles["search-box"]}>
-            <Search aria-hidden="true" />
-            <input
-              type="search"
-              placeholder="Search recent projects"
-              aria-label="Search recent projects"
-              value={props.searchValue || ""}
-              disabled={!canSearchProjects}
-              onChange={(event) => {
-                if (canSearchProjects) {
-                  props.onSearchChange(event.target.value);
-                }
-              }}
-            />
-          </label>
+          <div>
+            {
+              !props.disableSearch && (
+                <label className={styles["search-box"]}>
+                  <Search aria-hidden="true" />
+                  <input
+                    type="search"
+                    placeholder="Search recent projects"
+                    aria-label="Search recent projects"
+                    value={props.searchValue || ""}
+                    disabled={!canSearchProjects}
+                    onChange={(event) => {
+                      if (canSearchProjects) {
+                        props.onSearchChange(event.target.value);
+                      }
+                    }}
+                  />
+                </label>
+              )
+            }
+          </div>
 
           <div className={styles["topbar-actions"]}>
             <IconButton label="Help" onClick={() => props.onViewChange("help")}><HelpCircle /></IconButton>
@@ -95,6 +101,8 @@ WindowBase.propTypes = {
   children: PropTypes.node,
   logoRgb: PropTypes.string.isRequired,
   logoWhite: PropTypes.string.isRequired,
+  brandName: PropTypes.string.isRequired,
+  disableSearch: PropTypes.bool,
   navItems: PropTypes.arrayOf(
     PropTypes.shape({
       Icon: PropTypes.elementType.isRequired,
