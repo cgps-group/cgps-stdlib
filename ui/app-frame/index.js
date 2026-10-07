@@ -17,33 +17,8 @@ function getCurrentView() {
 }
 
 function WindowBase(props) {
-  const [activeNav, setActiveNav] = React.useState(getCurrentView);
+  const [ activeNav ] = React.useState(getCurrentView);
   const canSearchProjects = (typeof props.onSearchChange === "function");
-
-  const handleCreateProject = () => {
-    window.appFrameAPI?.createProject();
-  };
-
-  const handleOpenHelp = () => {
-    window.appFrameAPI?.openView("help");
-  };
-
-  const handleOpenHome = () => {
-    window.appFrameAPI?.openView("home");
-  };
-
-  const handleOpenProject = () => {
-    window.appFrameAPI?.openProjectDialog();
-  };
-
-  const handleOpenRecentProjects = () => {
-    window.appFrameAPI?.openView("recent");
-  };
-
-  const handleOpenSettings = () => {
-    setActiveNav("settings");
-    window.appFrameAPI?.openView("settings");
-  };
 
   return (
     <Provider background="base">
@@ -78,12 +53,12 @@ function WindowBase(props) {
           </label>
 
           <div className={styles["topbar-actions"]}>
-            <IconButton label="Help" onClick={handleOpenHelp}><HelpCircle /></IconButton>
+            <IconButton label="Help" onClick={() => props.onViewChange("help")}><HelpCircle /></IconButton>
           </div>
         </header>
 
         <aside className={styles.sidebar} aria-label="Main navigation">
-          <IconButton label="Create new project" className={styles["create-button"]} onClick={handleCreateProject}><Add /></IconButton>
+          <IconButton label="Create new project" className={styles["create-button"]} onClick={() => props.onViewChange("create")}><Add /></IconButton>
           <nav className={styles["nav-items"]}>
             {
               props.navItems.map(({ id, label, Icon }) => (
@@ -91,23 +66,7 @@ function WindowBase(props) {
                   key={id}
                   label={label}
                   className={`${styles["nav-button"]} ${activeNav === id ? styles["is-active"] : ""}`}
-                  onClick={() => {
-                    if (id === "help") {
-                      setActiveNav(id);
-                      handleOpenHelp();
-                    }
-                    else if (id === "home") {
-                      setActiveNav(id);
-                      handleOpenHome();
-                    }
-                    else if (id === "recent") {
-                      setActiveNav(id);
-                      handleOpenRecentProjects();
-                    }
-                    else if (id === "open") {
-                      handleOpenProject();
-                    }
-                  }}
+                  onClick={() => props.onViewChange(id)}
                 >
                   <Icon />
                 </IconButton>
@@ -117,7 +76,7 @@ function WindowBase(props) {
           <IconButton
             label="Settings"
             className={`${styles["sidebar-toggle"]} ${activeNav === "settings" ? styles["is-active"] : ""}`}
-            onClick={handleOpenSettings}
+            onClick={() => props.onViewChange("settings")}
           >
             <Settings />
           </IconButton>
@@ -144,6 +103,7 @@ WindowBase.propTypes = {
     })
   ).isRequired,
   onSearchChange: PropTypes.func,
+  onViewChange: PropTypes.func,
   searchValue: PropTypes.string,
 };
 
