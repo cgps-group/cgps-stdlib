@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Provider } from "@react-spectrum/s2";
+import { Provider, Text } from "@react-spectrum/s2";
+
 import Add from "@react-spectrum/s2/icons/Add";
 import HelpCircle from "@react-spectrum/s2/icons/HelpCircle";
 import Search from "@react-spectrum/s2/icons/Search";
@@ -24,7 +25,7 @@ function WindowBase(props) {
     <Provider background="base">
       <div
         className={
-          clsx("app-frame", styles["app-frame"])
+          clsx("app-frame", styles["app-frame"], props.className)
         }
       >
         <header className={styles.topbar}>
@@ -33,7 +34,11 @@ function WindowBase(props) {
               <source srcSet={props.logoWhite} media="(prefers-color-scheme: dark)" />
               <img src={props.logoRgb} alt="" />
             </picture>
-            <span className={styles["brand-name"]}>{ props.brandName ?? "CGPS Desktop App" }</span>
+            <Text>
+              <span className={clsx("brand-name", styles["brand-name"])}>
+                { props.brandName ?? "CGPS Desktop App" }
+              </span>
+            </Text>
           </div>
 
           <div>
@@ -99,6 +104,7 @@ function WindowBase(props) {
 
 WindowBase.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   logoRgb: PropTypes.string.isRequired,
   logoWhite: PropTypes.string.isRequired,
   brandName: PropTypes.string.isRequired,
