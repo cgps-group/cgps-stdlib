@@ -203,10 +203,11 @@ async function setMetadata(bucket, key, metadata) {
   return client.send(command);
 }
 
-async function retrieve(bucket, key, decompress = false) {
+async function retrieve(bucket, key, decompress = false, range = undefined) {
   const command = new GetObjectCommand({
     Bucket: bucket,
     Key: key,
+    Range: range,
   });
   const response = await client.send(command);
 
