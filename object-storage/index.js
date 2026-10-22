@@ -372,12 +372,7 @@ async function uploadGzippedJsonToS3(bucket, key, jsonObject) {
     ContentEncoding: "gzip",
   };
 
-  return new Promise((resolve, reject) => {
-    s3.putObject(params, (err, data) => {
-      if (err) reject(err);
-      resolve(data);
-    });
-  });
+  return s3.putObject(params).promise();
 }
 
 async function uploadGzippedObjectToS3(bucket, key, data) {
@@ -392,12 +387,7 @@ async function uploadGzippedObjectToS3(bucket, key, data) {
     ContentEncoding: "gzip",
   };
 
-  return new Promise((resolve, reject) => {
-    s3.putObject(params, (err, result) => {
-      if (err) reject(err);
-      resolve(result);
-    });
-  });
+  return s3.putObject(params).promise();
 }
 
 export default {
