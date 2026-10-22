@@ -376,7 +376,6 @@ async function uploadGzippedJsonToS3(bucket, key, jsonObject) {
 }
 
 async function uploadGzippedObjectToS3(bucket, key, data) {
-
   const body = await gzip(data);
 
   const params = {
