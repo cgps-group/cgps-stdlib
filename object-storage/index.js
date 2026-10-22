@@ -388,7 +388,7 @@ async function uploadGzippedObjectToS3(bucket, key, data) {
     Bucket: bucket,
     Key: key,
     Body: body,
-    ContentType: "application/text",
+    ContentType: "text/plain",
     ContentEncoding: "gzip",
   };
 
